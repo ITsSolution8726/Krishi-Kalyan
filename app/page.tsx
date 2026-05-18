@@ -581,11 +581,10 @@ export default function HomePage() {
                 operate as para-extension professionals — guiding farmers with
                 scientific advice{" "}
                 <span className="font-semibold text-foreground">
-                  With the advisory of
-                </span>{" "}
-                — ATC Chinsura, Hooghly · SAMETI · Narendrapur Ramkrishna
-                Mission · MANAGE · Ministry of Agriculture and Farmers Welfare,
-                Govt. of India.
+                  With the advisory of — ATC Chinsura, Hooghly · SAMETI ·
+                  Narendrapur Ramkrishna Mission · Ministry of
+                  Agriculture and Farmers Welfare, Govt. of India.
+                </span>
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
                 We are committed to providing sustainable agricultural solutions
