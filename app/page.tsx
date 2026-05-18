@@ -579,16 +579,18 @@ export default function HomePage() {
                 advisory, training, machinery, mushroom projects and youth-led
                 agri-business models. As a Govt. certified DAESI dealer, we
                 operate as para-extension professionals — guiding farmers with
-                scientific advice while maintaining deep local trust built over
-                40+ years.
-              </p>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+                scientific advice{" "}
                 <span className="font-semibold text-foreground">
                   With the advisory of
                 </span>{" "}
                 — ATC Chinsura, Hooghly · SAMETI · Narendrapur Ramkrishna
                 Mission · MANAGE · Ministry of Agriculture and Farmers Welfare,
                 Govt. of India.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+                We are committed to providing sustainable agricultural solutions
+                and empowering farmers with the knowledge and resources they
+                need to succeed.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 {[
