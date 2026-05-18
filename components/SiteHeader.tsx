@@ -4,13 +4,13 @@ import { Menu, X, Phone, Sprout } from "lucide-react";
 import Link from "next/link";
 
 const nav = [
-  { to: "#home", label: "Home", bn: "হোম" },
-  { to: "#about", label: "About", bn: "পরিচিতি" },
-    { to: "#benefits", label: "Benefits", bn: "উপকার" },
-  { to: "#achievements", label: "Achievements", bn: "অর্জন" },
-  { to: "#services", label: "Services", bn: "সেবা" },
-  { to: "#projects", label: "Projects", bn: "প্রকল্প" },
-  { to: "#investment", label: "Invest", bn: "বিনিয়োগ" },
+  { to: "/", label: "Home", bn: "হোম" },
+  { to: "/#about", label: "About", bn: "পরিচিতি" },
+    { to: "/#benefits", label: "Benefits", bn: "উপকার" },
+  { to: "/#achievements", label: "Achievements", bn: "অর্জন" },
+  { to: "/#services", label: "Services", bn: "সেবা" },
+  { to: "/#projects", label: "Projects", bn: "প্রকল্প" },
+  { to: "/#investment", label: "Invest", bn: "বিনিয়োগ" },
     { to: "/contact", label: "Contact", bn: "যোগাযোগ" },
 ] as const;
 
