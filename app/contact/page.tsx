@@ -150,7 +150,7 @@ export default function ContactPage() {
       <section className="bg-background">
         <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
-            <FadeIn>
+              <FadeIn direction="left">
               <div className="space-y-5">
                 {[
                   {
@@ -210,7 +210,7 @@ export default function ContactPage() {
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.1}>
+            <FadeIn direction="right" delay={0.1}>
               <ContactForm />
             </FadeIn>
           </div>

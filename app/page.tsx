@@ -396,7 +396,7 @@ export default function HomePage() {
       >
         <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-end">
-            <FadeIn>
+            <FadeIn direction="left">
               <SectionEyebrow
                 en="Use & Benefits for Farmers"
                 bn="চাষির উপকার"
@@ -406,7 +406,7 @@ export default function HomePage() {
                 <span className="italic text-clay">every farmer.</span>
               </h2>
             </FadeIn>
-            <FadeIn delay={0.1}>
+            <FadeIn direction="right" delay={0.1}>
               <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
                 Working with Krishi Kalyan is not just buying seeds or
                 pesticides. It's joining an ecosystem that lifts the entire
@@ -567,7 +567,7 @@ export default function HomePage() {
       >
         <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
-            <FadeIn>
+            <FadeIn direction="left">
               <SectionEyebrow en="About Us" bn="আমাদের পরিচয়" />
               <h2 className="mt-5 font-display text-4xl font-bold leading-tight text-foreground md:text-5xl">
                 Built on trust. Rooted in{" "}
@@ -582,8 +582,8 @@ export default function HomePage() {
                 scientific advice{" "}
                 <span className="font-semibold text-foreground">
                   With the advisory of — ATC Chinsura, Hooghly · SAMETI ·
-                  Narendrapur Ramkrishna Mission · Ministry of
-                  Agriculture and Farmers Welfare, Govt. of India.
+                  Narendrapur Ramkrishna Mission · Ministry of Agriculture and
+                  Farmers Welfare, Govt. of India.
                 </span>
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
@@ -609,7 +609,7 @@ export default function HomePage() {
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.15}>
+            <FadeIn direction="right" delay={0.15}>
               <div className="relative">
                 <div className="absolute -inset-3 -z-10 rounded-3xl gradient-gold opacity-30 blur-2xl" />
                 <img
@@ -655,7 +655,7 @@ export default function HomePage() {
               },
             ].map((u, i) => (
               <FadeIn key={u.t} delay={i * 0.05}>
-                <div className="h-full rounded-3xl border border-border bg-card p-7">
+                <div className="h-full rounded-3xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft hover:border-clay/30">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-clay/10 text-clay">
                     <u.icon className="h-5 w-5" />
                   </div>
@@ -750,45 +750,53 @@ export default function HomePage() {
           </FadeIn>
 
           <div className="mt-16 space-y-20">
-            {projects.map((p, i) => (
-              <FadeIn key={p.name}>
+            {projects.map((p, i) => {
+              const reversed = i % 2 === 1;
+              const imgDir = reversed ? "right" : "left";
+              const txtDir = reversed ? "left" : "right";
+              return (
                 <div
-                  className={`grid gap-10 lg:grid-cols-2 lg:items-center ${i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}
+                  key={p.name}
+                  className={`grid gap-10 lg:grid-cols-2 lg:items-center ${reversed ? "lg:[&>*:first-child]:order-2" : ""}`}
                 >
-                  <div className="relative">
-                    <div className="absolute -inset-3 -z-10 rounded-3xl gradient-gold opacity-25 blur-2xl" />
-                    <img
-                      src={p.img}
-                      alt={p.name}
-                      loading="lazy"
-                      className="aspect-[4/3] w-full rounded-3xl object-cover shadow-soft"
-                    />
-                  </div>
-                  <div>
-                    <SectionEyebrow en={p.tag} />
-                    <h3 className="mt-5 font-display text-3xl font-bold leading-tight md:text-4xl">
-                      {p.name}
-                    </h3>
-                    <p className="font-bengali mt-2 text-xl text-clay font-semibold">
-                      {p.bn}
-                    </p>
-                    <p className="mt-5 text-muted-foreground leading-relaxed md:text-lg">
-                      {p.desc}
-                    </p>
-                    <div className="mt-7 flex flex-wrap gap-2">
-                      {p.pillars.map((x) => (
-                        <span
-                          key={x}
-                          className="rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground"
-                        >
-                          {x}
-                        </span>
-                      ))}
+                  <FadeIn direction={imgDir}>
+                    <div className="relative group">
+                      <div className="absolute -inset-3 -z-10 rounded-3xl gradient-gold opacity-25 blur-2xl transition-opacity duration-500 group-hover:opacity-50" />
+                      <img
+                        src={p.img}
+                        alt={p.name}
+                        loading="lazy"
+                        className="aspect-[4/3] w-full rounded-3xl object-cover shadow-soft transition-transform duration-700 group-hover:scale-[1.02]"
+                      />
                     </div>
-                  </div>
+                  </FadeIn>
+                  <FadeIn direction={txtDir} delay={0.1}>
+                    <div>
+                      <SectionEyebrow en={p.tag} />
+                      <h3 className="mt-5 font-display text-3xl font-bold leading-tight md:text-4xl">
+                        {p.name}
+                      </h3>
+                      <p className="font-bengali mt-2 text-xl text-clay font-semibold">
+                        {p.bn}
+                      </p>
+                      <p className="mt-5 text-muted-foreground leading-relaxed md:text-lg">
+                        {p.desc}
+                      </p>
+                      <div className="mt-7 flex flex-wrap gap-2">
+                        {p.pillars.map((x) => (
+                          <span
+                            key={x}
+                            className="rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:border-primary/40 hover:bg-primary/5"
+                          >
+                            {x}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </FadeIn>
                 </div>
-              </FadeIn>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -812,7 +820,7 @@ export default function HomePage() {
             {plans.map((p, i) => (
               <FadeIn key={p.name} delay={i * 0.08}>
                 <div
-                  className={`relative h-full rounded-3xl border p-8 ${p.popular ? "gradient-hero text-background border-transparent shadow-glow" : "bg-card border-border"}`}
+                  className={`relative h-full rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1.5 ${p.popular ? "gradient-hero text-background border-transparent shadow-glow hover:shadow-[0_30px_80px_-15px_oklch(0.55_0.15_40/0.6)]" : "bg-card border-border hover:shadow-soft hover:border-primary/30"}`}
                 >
                   {p.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full gradient-gold px-4 py-1 text-xs font-bold text-foreground shadow-soft">
@@ -905,7 +913,7 @@ export default function HomePage() {
               },
             ].map((u, i) => (
               <FadeIn key={u.t} delay={i * 0.06}>
-                <div className="h-full rounded-3xl bg-card border border-border p-7">
+                <div className="group h-full rounded-3xl bg-card border border-border p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft hover:border-primary/30">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                     <u.icon className="h-5 w-5" />
                   </div>
@@ -961,91 +969,5 @@ export default function HomePage() {
         </div>
       </section>
     </>
-  );
-}
-
-function ContactForm() {
-  const [sent, setSent] = useState(false);
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
-      className="rounded-3xl border border-border bg-card p-7 md:p-9 shadow-soft"
-    >
-      <h3 className="font-display text-2xl font-bold">Send us a message</h3>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Tell us a bit about your farm or interest.
-      </p>
-
-      {sent ? (
-        <div className="mt-8 rounded-2xl bg-primary/10 border border-primary/20 p-6 text-center">
-          <div className="font-display text-xl font-bold text-primary">
-            ধন্যবাদ! Message received.
-          </div>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Our team will reach out shortly.
-          </p>
-        </div>
-      ) : (
-        <div className="mt-6 grid gap-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Your name" name="name" required />
-            <Field label="Phone" name="phone" required type="tel" />
-          </div>
-          <Field label="Email" name="email" type="email" />
-          <div>
-            <label className="text-xs font-semibold uppercase tracking-wider text-clay">
-              Interested in
-            </label>
-            <select
-              name="topic"
-              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none"
-            >
-              <option>Agri inputs & advisory</option>
-              <option>Mushroom investment</option>
-              <option>Training & youth program</option>
-              <option>Dealership / FPO</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div>
-            <label className="text-xs font-semibold uppercase tracking-wider text-clay">
-              Message
-            </label>
-            <textarea
-              name="message"
-              rows={4}
-              required
-              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none resize-none"
-            />
-          </div>
-          <button
-            type="submit"
-            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
-          >
-            Send message <Send className="h-4 w-4" />
-          </button>
-        </div>
-      )}
-    </form>
-  );
-}
-
-function Field({
-  label,
-  ...rest
-}: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <div>
-      <label className="text-xs font-semibold uppercase tracking-wider text-clay">
-        {label}
-      </label>
-      <input
-        {...rest}
-        className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none"
-      />
-    </div>
   );
 }
