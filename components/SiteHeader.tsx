@@ -4,14 +4,13 @@ import { Menu, X, Phone, Sprout } from "lucide-react";
 import Link from "next/link";
 
 const nav = [
-  { to: "/", label: "Home", bn: "হোম" },
+  { to: "/#home", label: "Home", bn: "হোম" },
   { to: "/#about", label: "About", bn: "পরিচিতি" },
-    { to: "/#benefits", label: "Benefits", bn: "উপকার" },
-  { to: "/#achievements", label: "Achievements", bn: "অর্জন" },
   { to: "/#services", label: "Services", bn: "সেবা" },
   { to: "/#projects", label: "Projects", bn: "প্রকল্প" },
+  { to: "/product", label: "Product", bn: "পণ্য" },
   { to: "/#investment", label: "Invest", bn: "বিনিয়োগ" },
-    { to: "/contact", label: "Contact", bn: "যোগাযোগ" },
+  { to: "/#contact", label: "Contact", bn: "যোগাযোগ" },
 ] as const;
 
 export function SiteHeader() {
@@ -24,7 +23,7 @@ export function SiteHeader() {
             <Sprout className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
           </div>
           <div className="leading-tight">
-            <div className="font-display text-lg font-bold text-foreground">Krishi Kalyan</div>
+            <div className="font-display text-lg font-bold text-foreground">K.Krishi Kalyan</div>
             <div className="font-bengali text-[11px] text-clay -mt-0.5">কৃষি কল্যাণ গ্রুপ</div>
           </div>
         </Link>

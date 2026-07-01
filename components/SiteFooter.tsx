@@ -13,7 +13,7 @@ export function SiteFooter() {
               </div>
               <div>
                 <div className="font-display text-lg font-bold">
-                  Krishi Kalyan
+                  K.Krishi Kalyan
                 </div>
                 <div className="font-bengali text-xs text-accent">
                   কৃষি কল্যাণ গ্রুপ
