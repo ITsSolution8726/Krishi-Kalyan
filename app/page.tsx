@@ -53,6 +53,12 @@ const services = [
     desc: "DAESI-led extension, field visits and skill development for youth.",
   },
   {
+    icon: Globe2,
+    en: "Market & Export Linkage",
+    bn: "বাজার সংযোগ",
+    desc: "Buyer/mandi connections and export-import guidance.",
+  },
+  {
     icon: Leaf,
     en: "Mushroom Farming Projects",
     bn: "মাশরুম চাষ প্রকল্প",
@@ -94,12 +100,7 @@ const services = [
     bn: "উদ্যান কৃষি",
     desc: "Capsicum, dragon fruit, dates, nursery & roof gardening.",
   },
-  {
-    icon: Globe2,
-    en: "Market & Export Linkage",
-    bn: "বাজার সংযোগ",
-    desc: "Buyer/mandi connections and export-import guidance.",
-  },
+
 ];
 
 const usp = [
@@ -383,7 +384,7 @@ export default function HomePage() {
   const [certOpen, setCertOpen] = useState<{
     img: string;
     title: string;
-    pdf: string;
+    pdf?: string;
   } | null>(null);
   return (
     <>
@@ -395,39 +396,101 @@ export default function HomePage() {
         className="bg-cream border-y border-border scroll-mt-20"
       >
         <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-end">
+          {/* Section Heading */}
+          <FadeIn>
+            <SectionEyebrow
+              en="Use & Benefits for Farmers"
+              bn="চাষির উপকার"
+            />
+
+            <h2 className="mt-5 max-w-5xl font-display text-3xl font-bold leading-tight md:text-5xl lg:text-5xl">
+              Income{" "}<span className="italic text-clay">₹10,000 – ₹50,000/month</span>{" "}
+              through modern farming opportunities.
+            </h2>
+          </FadeIn>
+
+          {/* Description + Image */}
+          <div className="mt-14 grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
             <FadeIn direction="left">
-              <SectionEyebrow
-                en="Use & Benefits for Farmers"
-                bn="চাষির উপকার"
-              />
-              <h2 className="mt-5 font-display text-4xl font-bold leading-tight md:text-5xl">
-                Real, measurable gains for{" "}
-                <span className="italic text-clay">every farmer.</span>
-              </h2>
+              <div>
+                <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+                  Working with Krishi Kalyan is not just buying seeds or pesticides.
+                  It's joining an ecosystem that helps farmers earn more through
+                  scientific farming practices, protected cultivation, government
+                  training, assured buy-back models and market linkage.
+                </p>
+
+                <p className="mt-5 text-base leading-relaxed text-muted-foreground md:text-lg">
+                  Whether you are a small farmer or a rural entrepreneur, our
+                  end-to-end support—from training and inputs to marketing—helps you
+                  build a stable and sustainable agricultural business with income
+                  opportunities ranging from ₹10,000 to ₹50,000 per month,
+                  depending on the selected farming model.
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {[
+                    "Govt. Certified Guidance",
+                    "Buy-Back Support",
+                    "Modern Farming",
+                    "Higher Income",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full bg-clay px-4 py-2 text-sm font-semibold text-secondary"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </FadeIn>
-            <FadeIn direction="right" delay={0.1}>
-              <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-                Working with Krishi Kalyan is not just buying seeds or
-                pesticides. It's joining an ecosystem that lifts the entire
-                household — through better inputs, scientific advice in Bengali,
-                protected cultivation, insured projects and direct market
-                linkage. Here is what farmers actually gain.
-              </p>
+
+            <FadeIn direction="right">
+              <div className="relative">
+                <div className="absolute -inset-4 -z-10 rounded-3xl gradient-gold opacity-25 blur-3xl" />
+
+                <img
+                  src="./tree.png"
+                  alt="Farmer earning through modern agriculture"
+                  className="w-full h-full rounded-2xl object-cover shadow-soft"
+                />
+
+                {/* Floating Income Card */}
+                <div className="absolute -bottom-9 right-2 rounded-2xl bg-card p-3 shadow-glow border border-border">
+                  <p className="text-xs uppercase tracking-wider text-clay">
+                    Potential Monthly Income
+                  </p>
+
+                  <h3 className="mt-1 font-display text-xl font-bold text-primary">
+                    ₹10K–₹50K
+                  </h3>
+
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Depending on farming model
+                  </p>
+                </div>
+              </div>
             </FadeIn>
           </div>
 
-          <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {/* Benefit Cards */}
+          <div className="mt-20 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {benefits.map((b, i) => (
               <FadeIn key={b.t} delay={i * 0.05}>
                 <div className="group h-full rounded-3xl border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:shadow-soft hover:border-clay/30">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl gradient-gold text-foreground shadow-soft">
                     <b.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="mt-5 font-display text-xl font-bold">{b.t}</h3>
+
+                  <h3 className="mt-5 font-display text-xl font-bold">
+                    {b.t}
+                  </h3>
+
                   <p className="font-bengali mt-1 text-sm font-medium text-clay">
                     {b.bn}
                   </p>
+
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                     {b.d}
                   </p>
@@ -461,10 +524,13 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() =>
-                      a.cert &&
-                      setCertOpen({ img: a.img, title: a.title, pdf: a.cert })
+                      setCertOpen({
+                        img: a.img,
+                        title: a.title,
+                        pdf: a.cert,
+                      })
                     }
-                    className={`relative aspect-4/3 overflow-hidden bg-secondary text-left ${a.cert ? "cursor-zoom-in" : "cursor-default"}`}
+                    className="relative aspect-4/3 overflow-hidden bg-secondary text-left cursor-zoom-in"
                     aria-label={
                       a.cert ? `View full certificate: ${a.title}` : a.title
                     }
@@ -529,22 +595,27 @@ export default function HomePage() {
                     {certOpen.title}
                   </h4>
                   <div className="flex items-center gap-2">
-                    <a
-                      href={certOpen.pdf}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground"
-                    >
-                      <FileText className="h-3.5 w-3.5" /> Open PDF
-                    </a>
+
+                    {certOpen.pdf && (
+                      <a
+                        href={certOpen.pdf}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground"
+                      >
+                        <FileText className="h-3.5 w-3.5" />
+                        Open PDF
+                      </a>
+                    )}
+
                     <button
                       type="button"
                       onClick={() => setCertOpen(null)}
                       className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background hover:bg-secondary"
-                      aria-label="Close"
                     >
                       <X className="h-4 w-4" />
                     </button>
+
                   </div>
                 </div>
                 <div className="max-h-[80vh] overflow-auto bg-secondary p-4">
@@ -574,15 +645,15 @@ export default function HomePage() {
                 <span className="italic text-clay">soil.</span>
               </h2>
               <p className="mt-5 text-base leading-relaxed text-muted-foreground md:text-lg">
-                From a small agri-input store in Singur, Hooghly, Krishi Kalyan
+                From a small agri-input store in Singur, Hooghly, <span className="font-bold" text-foreground> Krishi Kalyan </span>
                 grew into a complete farmer support ecosystem — handling inputs,
                 advisory, training, machinery, mushroom projects and youth-led
-                agri-business models. As a Govt. certified DAESI dealer, we
+                agri-business models. As a Govt. certified <span className="font-bold" text-foreground>  DAESI Dealer </span>, we
                 operate as para-extension professionals — guiding farmers with
                 scientific advice{" "}
                 <span className="font-semibold text-foreground">
-                  With the advisory of — ATC Chinsura, Hooghly · SAMETI ·
-                  Narendrapur Ramkrishna Mission · Ministry of Agriculture and
+                  With the advisory of — ATC Chinsura, Hooghly | SAMETI
+                  Narendrapur Ramkrishna Mission | MANAGE, Ministry of Agriculture and
                   Farmers Welfare, Govt. of India.
                 </span>
               </p>
@@ -611,21 +682,42 @@ export default function HomePage() {
 
             <FadeIn direction="right" delay={0.15}>
               <div className="relative">
+                {/* Glow */}
                 <div className="absolute -inset-3 -z-10 rounded-3xl gradient-gold opacity-30 blur-2xl" />
-                <img
-                  src="./farmer.jpg"
-                  alt="Farmer holding a seedling at sunset in Hooghly"
-                  loading="lazy"
-                  className="aspect-4/5 w-full rounded-3xl object-cover shadow-soft"
-                />
-                <div className="absolute -bottom-5 -left-5 max-w-65 rounded-2xl bg-card p-5 shadow-soft border border-border">
-                  <Quote className="h-5 w-5 text-clay" />
-                  <p className="font-bengali mt-2 text-sm font-medium text-foreground leading-snug">
-                    "চাষির পাশে, সবসময়।"
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    — Our promise to every farmer
-                  </p>
+
+                <div className="space-y-3">
+                  {/* Top Image */}
+                  <div className="overflow-hidden rounded-3xl shadow-soft">
+                    <img
+                      src="./team.jpg"
+                      alt="Krishi Kalyan farmer training"
+                      loading="lazy"
+                      className="h-64 w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+
+                  {/* Quote Card */}
+                  <div className="absolute bottom-5 left-5 max-w-xs rounded-2xl border border-border bg-card/95 p-5 backdrop-blur shadow-soft">
+                    <Quote className="h-5 w-5 text-clay" />
+
+                    <p className="font-bengali mt-2 text-sm font-medium text-foreground leading-snug">
+                      "চাষির পাশে, সবসময়।"
+                    </p>
+
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      — Our promise to every farmer
+                    </p>
+                  </div>
+
+                  {/* Bottom Image */}
+                  <div className="relative overflow-hidden rounded-3xl shadow-soft">
+                    <img
+                      src="./dasavuja.jpg"
+                      alt="Modern farming field"
+                      loading="lazy"
+                      className="h-76 w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
                 </div>
               </div>
             </FadeIn>
@@ -709,7 +801,7 @@ export default function HomePage() {
           <FadeIn>
             <SectionEyebrow en="What we do" bn="আমাদের সেবা" />
             <h2 className="mt-5 font-display text-4xl font-bold tracking-tight md:text-5xl">
-              Complete agri solutions, end&nbsp;to&nbsp;end.
+              স্বামীজীর কৃষি ভাবনা (SKI-25) Model <br></br> Complete agri solutions.
             </h2>
           </FadeIn>
 

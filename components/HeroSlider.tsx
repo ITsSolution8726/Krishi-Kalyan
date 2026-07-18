@@ -53,7 +53,7 @@ export function HeroSlider() {
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}
           className="mt-6 max-w-4xl font-display text-5xl font-bold leading-none tracking-tight text-background md:text-7xl lg:text-[88px]"
         >
-          From Farming<br />to <span className="text-gradient-gold italic">Earning.</span>
+          Business Farming<br />to <span className="text-gradient-gold italic">Learning.</span>
         </motion.h1>
 
         <motion.p
