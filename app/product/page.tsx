@@ -5,12 +5,9 @@ import {
   Star, Truck, ShieldCheck, Award, Leaf, Sprout, Wheat, Apple, Carrot,
   Coins, Flower2, Home, Check, X, Phone, Mail, ChevronDown, ShoppingCart,
   Droplets, Heart, FlaskConical, Scale, Feather, Activity,
+  CheckCircle2,
 } from "lucide-react";
-// import heroField from "@/assets/hero-field.jpg";
-// import mushrooms from "@/assets/mushrooms.jpg";
-// import farmerImg from "@/assets/farmer.jpg";
-// import training from "@/assets/training.jpg";
-// import seedling from "@/assets/seedling.jpg";
+import Image from "next/image";
 
 // ------------------------------ DATA ------------------------------
 
@@ -22,12 +19,37 @@ const stats = [
 ];
 
 const crops = [
-  { icon: Wheat, en: "Grains", bn: "শস্য", list: "Rice, Wheat, Maize, Bajra, Jowar" },
-  { icon: Apple, en: "Fruits", bn: "ফল", list: "Mango, Banana, Guava, Litchi, Papaya" },
-  { icon: Carrot, en: "Vegetables", bn: "সবজি", list: "Potato, Tomato, Brinjal, Okra, Leafy greens" },
-  { icon: Coins, en: "Cash Crops", bn: "অর্থকরী ফসল", list: "Jute, Cotton, Sugarcane, Groundnut" },
-  { icon: Sprout, en: "Pulses", bn: "ডাল", list: "Chickpea, Lentils, Pigeon pea, Green gram" },
-  { icon: Home, en: "Home Gardens", bn: "বাড়ির বাগান", list: "Pots, terrace gardens, kitchen gardens" },
+  {
+    bn: "আলু",
+    image: "crops/potato.png",
+    list: "Bigger tubers, healthier roots and improved soil fertility.",
+  },
+  {
+    bn: "ধান",
+    image: "crops/rice.png",
+    list: "Stronger plants with improved grain filling and higher yield.",
+  },
+  {
+    bn: "বেগুন",
+    image: "crops/brinjal.png",
+    list: "More flowering, better fruit quality and longer harvest period.",
+  },
+  {
+    bn: "করলা",
+    image: "crops/bitter-gourd.png",
+    list: "Healthy vines with improved flowering and fruit production.",
+  },
+  {
+    bn: "পটল",
+    image: "crops/potol.png",
+    list: "Supports vigorous growth and consistent fruit development.",
+  },
+  {
+    en: "Cauliflower",
+    bn: "ফুলকপি",
+    image: "crops/cabbage-coliflower.png",
+    list: "Compact heads, greener leaves and healthier crop development.",
+  },
 ];
 
 const comparison = [
@@ -51,12 +73,48 @@ const npk = [
 ];
 
 const timeline = [
-  { week: "Week 1–2", title: "Leaves look fresher and greener", quote: "Within a week the leaves looked alive again.", who: "Radha B., Hooghly" },
-  { week: "Week 3–4", title: "Stronger stems, visible new shoots", quote: "Two doses in three weeks — best growth I've seen.", who: "Samar S., Singur" },
-  { week: "Month 1", title: "More flowers, better fruit set, fewer pests", quote: "Marigolds and chillies came in fuller and stronger.", who: "Karthik P., Burdwan" },
-  { week: "Month 2–3", title: "Soil softens, water holds better", quote: "My soil became soft and healthy. Crops grew better.", who: "Raghu R., Nadia" },
-  { week: "Harvest", title: "30–50% higher yield, premium quality", quote: "Yield went from 2 tonnes to nearly 5 tonnes per acre.", who: "Commercial Grower" },
-  { week: "Next Season", title: "Healthier soil — need even less input", quote: "After six months the plants and trees are lush.", who: "Lathika G., Murshidabad" },
+  {
+    week: "Week 1–2",
+    title: "Leaves look fresher and greener",
+    image: "./timeline/week1.png",
+    quote: "Within a week the leaves looked alive again.",
+    who: "Radha B., Hooghly",
+  },
+  {
+    week: "Week 3–4",
+    title: "Stronger stems, visible new shoots",
+    image: "./timeline/week3.png",
+    quote: "Two doses in three weeks — best growth I've seen.",
+    who: "Samar S., Singur",
+  },
+  {
+    week: "Month 1",
+    title: "More flowers, better fruit set, fewer pests",
+    image: "./timeline/month1.png",
+    quote: "Marigolds and chillies came in fuller and stronger.",
+    who: "Karthik P., Burdwan",
+  },
+  {
+    week: "Month 2–3",
+    title: "Soil softens, water holds better",
+    image: "./timeline/month2.png",
+    quote: "My soil became soft and healthy. Crops grew better.",
+    who: "Raghu R., Nadia",
+  },
+  {
+    week: "Harvest",
+    title: "30–50% higher yield, premium quality",
+    image: "./timeline/harvest.png",
+    quote: "Yield went from 2 tonnes to nearly 5 tonnes per acre.",
+    who: "Commercial Grower",
+  },
+  {
+    week: "Next Season",
+    title: "Healthier soil — need even less input",
+    image: "./timeline/nextseason.png",
+    quote: "After six months the plants and trees are lush.",
+    who: "Lathika G., Murshidabad",
+  },
 ];
 
 const safetyGroups = [
@@ -129,11 +187,11 @@ export default function ProductPage() {
         {/* Before / After split */}
         <div className="mx-auto grid max-w-6xl gap-1 px-3 pt-8 md:grid-cols-2 md:px-6 md:pt-12">
           <div className="relative aspect-[4/3] overflow-hidden rounded-l-2xl">
-            <img src={"./seedling.jpg"} alt="Tired soil before" className="h-full w-full object-cover grayscale-[40%]" />
+            <img src={"./before.png"} alt="Tired soil before" className="h-full w-full object-cover grayscale-[40%]" />
             <span className="absolute left-3 top-3 rounded-full bg-clay px-3 py-1 text-xs font-bold uppercase text-clay-foreground">Before</span>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-r-2xl">
-            <img src={"./hero-field.jpg"} alt="Lush field after" className="h-full w-full object-cover" />
+            <img src={"./after.png"} alt="Lush field after" className="h-full w-full object-cover" />
             <span className="absolute left-3 top-3 rounded-full bg-gold px-3 py-1 text-xs font-bold uppercase text-gold-foreground">After</span>
           </div>
         </div>
@@ -151,37 +209,78 @@ export default function ProductPage() {
               They tried, they tested, they recommend. That's the Krishi Mitra difference.
             </p>
           </FadeUp>
+          <FadeUp delay={0.08}>
+            <div className="mx-auto mt-10 max-w-5xl overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+              <img
+                src="./Hero-Product.png"
+                alt="Krishi Mitra Organic Bio Fertilizer"
+                className="w-full object-cover"
+              />
+            </div>
+          </FadeUp>
 
           <FadeUp delay={0.1}>
-            <div className="mx-auto mt-10 grid max-w-md gap-6 sm:max-w-2xl sm:grid-cols-[1fr_auto] sm:items-center">
-              <img
-                src={"./mushrooms.jpg"}
-                alt="Krishi Mitra organic bio-fertilizer pack"
-                className="mx-auto h-64 w-full max-w-xs rounded-2xl object-cover shadow-glow ring-4 ring-gold/40 sm:h-72"
-              />
-              <div className="text-left sm:pl-4">
-                <div className="inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-1 text-xs font-black uppercase text-gold-foreground">
-                  <Award className="h-3.5 w-3.5" /> 100% Money-Back Guarantee
+            <div className="mx-auto mt-12 max-w-6xl">
+
+              {/* Section Header */}
+              <div className="mb-10 flex flex-col items-center">
+                <div className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-black uppercase text-gold-foreground">
+                  <Award className="h-4 w-4" />
+                  100% Money-Back Guarantee
                 </div>
-                <p className="mt-3 font-display text-2xl font-bold leading-tight text-gold">
+
+                <h3 className="mt-5 w-full text-center font-display text-3xl font-bold leading-tight text-gold md:text-4xl max-w-5xl">
                   If you don't see the results, get your money back!
-                </p>
-                <ul className="mt-4 space-y-1.5 text-sm text-white/85">
-                  <li className="flex items-center gap-2"><Check className="h-4 w-4 text-gold" /> ISO-grade manufacturing</li>
-                  <li className="flex items-center gap-2"><Check className="h-4 w-4 text-gold" /> Lab-tested every batch</li>
-                  <li className="flex items-center gap-2"><Check className="h-4 w-4 text-gold" /> Free home delivery</li>
-                  <li className="flex items-center gap-2"><Check className="h-4 w-4 text-gold" /> COD available</li>
-                </ul>
+                </h3>
+              </div>
+
+              {/* Two Column Layout */}
+              <div className="grid items-center gap-4 lg:grid-cols-2">
+
+                {/* Left - Image */}
+                <div className="flex justify-center">
+                  <img
+                    src="./money_back.png"
+                    alt="Krishi Mitra organic bio-fertilizer pack"
+                    className="h-auto w-full max-w-md rounded-2xl object-contain shadow-glow ring-4 ring-gold/40"
+                  />
+                </div>
+
+                {/* Right - Features */}
+                <div>
+                  <ul className="space-y-4 text-base text-white/85 text-xl">
+                    <li className="flex items-center gap-3">
+                      <Check className="h-5 w-5 shrink-0 text-gold" />
+                      ISO-grade manufacturing
+                    </li>
+
+                    <li className="flex items-center gap-3">
+                      <Check className="h-5 w-5 shrink-0 text-gold" />
+                      Lab-tested every batch
+                    </li>
+
+                    <li className="flex items-center gap-3">
+                      <Check className="h-5 w-5 shrink-0 text-gold" />
+                      Free home delivery
+                    </li>
+
+                    <li className="flex items-center gap-3">
+                      <Check className="h-5 w-5 shrink-0 text-gold" />
+                      Cash on Delivery (COD) available
+                    </li>
+                  </ul>
+                </div>
+
               </div>
             </div>
           </FadeUp>
 
           <FadeUp delay={0.2}>
-            <div className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-3 md:grid-cols-4">
+            <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 md:grid-cols-4">
               {stats.map((s) => (
                 <div key={s.v} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
                   <s.icon className="mx-auto h-5 w-5 text-gold" />
-                  <div className="mt-2 font-display text-xl font-bold text-white">{s.k}</div>
+                  <div className="mt-2 font-display text-2xl font-bold text-white">{s.k}</div>
                   <div className="text-xs text-white/70">{s.v}</div>
                 </div>
               ))}
@@ -204,30 +303,51 @@ export default function ProductPage() {
 
       {/* ---------- CROPS ---------- */}
       <section className="bg-[oklch(0.22_0.05_150)] py-16 text-white md:py-24">
-        <div className="mx-auto max-w-6xl px-5">
+        <div className="mx-auto max-w-7xl px-5">
           <FadeUp>
-            <h2 className="text-center font-display text-3xl font-black md:text-4xl">Works for Every Crop You Grow</h2>
-            <p className="mt-3 text-center text-white/70">From small kitchen gardens to large commercial farms across India.</p>
+            <h2 className="text-center font-display text-3xl font-black md:text-4xl">
+              Works for Every Crop You Grow
+            </h2>
+
+            <p className="mt-3 mx-auto max-w-2xl text-center text-white/70">
+              One organic fertilizer. Multiple crops. Proven performance across
+              vegetables, grains and commercial farming.
+            </p>
           </FadeUp>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {crops.map((c, i) => (
-              <FadeUp key={c.en} delay={i * 0.05}>
-                <div className="group h-full rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition-colors hover:border-gold/40 hover:bg-white/[0.07]">
-                  <div className="flex items-center gap-3">
-                    <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold/15 text-gold">
-                      <c.icon className="h-5 w-5" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="font-display text-lg font-bold">{c.en}</div>
-                      <div className="font-bengali text-sm text-gold/90">{c.bn}</div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {crops.map((crop, i) => (
+              <FadeUp key={crop.en} delay={i * 0.05}>
+                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] transition-all duration-500 hover:-translate-y-2 hover:border-gold/40 hover:shadow-2xl hover:shadow-gold/10">
+
+                  {/* Image */}
+                  <div className="relative aspect-square overflow-hidden">
+                    <Image
+                      src={crop.image}
+                      alt={crop.bn}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+
+                    {/* Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
+
+                    {/* Crop Name */}
+                    <div className="absolute bottom-7 left-7 z-10">
+                      <h3 className="mt-2 font-bengali text-4xl font-bold leading-none text-gold drop-shadow-lg">
+                        {crop.bn}
+                      </h3>
                     </div>
                   </div>
-                  <p className="mt-3 text-sm text-white/75">{c.list}</p>
+
                 </div>
               </FadeUp>
             ))}
           </div>
-          <div className="mt-10 text-center"><CtaButton>Order Now — Free Delivery</CtaButton></div>
+
+          <div className="mt-14 text-center">
+            <CtaButton>Order Now — Free Delivery</CtaButton>
+          </div>
         </div>
       </section>
 
@@ -276,23 +396,58 @@ export default function ProductPage() {
               <p className="mt-3 italic text-muted-foreground">What this actually means for your field.</p>
             </div>
           </FadeUp>
-
-          <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
+          <div className="mt-14">
             <FadeUp>
-              <div className="relative">
-                <img src={"./mushrooms.jpg"} alt="Krishi Mitra product" className="aspect-square w-full rounded-3xl object-cover shadow-soft" />
-                <div className="absolute -bottom-4 -right-4 hidden h-24 w-24 place-items-center rounded-full bg-gold text-center font-display text-sm font-black leading-tight text-gold-foreground shadow-glow sm:grid">
-                  Lab<br />Tested
-                </div>
+              <div className="overflow-hidden rounded-3xl border border-border shadow-soft">
+                <img
+                  src="./npk.png"
+                  alt="Krishi Mitra"
+                  className="w-full aspect-[21/9] object-cover"
+                />
               </div>
             </FadeUp>
-            <div className="grid gap-4 sm:grid-cols-2">
+
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {npk.map((n, i) => (
                 <FadeUp key={n.title} delay={i * 0.05}>
-                  <div className="h-full rounded-2xl border border-border bg-card p-5 shadow-soft">
-                    <n.icon className={`h-6 w-6 ${n.color}`} />
-                    <div className="mt-2 font-display text-base font-bold">{n.title}</div>
-                    <p className="mt-1 text-sm text-muted-foreground">{n.desc}</p>
+                  <div
+                    className="
+          group flex h-full min-h-[220px] flex-col
+          rounded-2xl border border-border
+          bg-card p-4
+          shadow-soft
+          transition-all duration-500 ease-out
+          hover:-translate-y-2
+          hover:border-gold/40
+          hover:shadow-2xl hover:shadow-gold/10
+        "
+                  >
+                    {/* Icon */}
+                    <div
+                      className={`
+            mb-5 flex h-14 w-14 items-center justify-center
+            rounded-2xl bg-primary/10
+            transition-all duration-500
+            group-hover:scale-110
+            group-hover:rotate-6
+            ${n.color}
+          `}
+                    >
+                      <n.icon className="h-7 w-7 transition-transform duration-500 group-hover:scale-110" />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-display text-xl font-bold transition-colors duration-300 group-hover:text-gold">
+                      {n.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="mt-2 flex-1 text-sm leading-7 text-muted-foreground">
+                      {n.desc}
+                    </p>
+
+                    {/* Bottom Accent */}
+                    <div className="mt-2 h-1 w-12 rounded-full bg-gold/30 transition-all duration-500 group-hover:w-full group-hover:bg-gold" />
                   </div>
                 </FadeUp>
               ))}
@@ -316,10 +471,10 @@ export default function ProductPage() {
           <FadeUp delay={0.1}>
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               <div className="rounded-2xl border border-destructive/30 bg-card p-6 shadow-soft">
-                <div className="font-display text-lg font-bold text-destructive">Your Current Cost / Acre</div>
+                <div className="font-display text-lg font-bold text-destructive">Your Current Cost / Bigha</div>
                 <ul className="mt-4 space-y-2 text-sm">
                   {[
-                    ["DAP: 3 bags @ ₹1,350", "₹4,050"],
+                    ["IFFCO/DAP: 3 bags @ ₹1,350", "₹4,050"],
                     ["Urea: 2 bags @ ₹266", "₹532"],
                     ["NPK: 1 bag @ ₹1,200", "₹1,200"],
                     ["Pesticides (frequent)", "₹3,000–5,000"],
@@ -334,7 +489,7 @@ export default function ProductPage() {
                 </div>
               </div>
               <div className="rounded-2xl border-2 border-primary bg-card p-6 shadow-glow">
-                <div className="font-display text-lg font-bold text-primary">With Krishi Mitra / Acre</div>
+                <div className="font-display text-lg font-bold text-primary">With Krishi Mitra / Bigha</div>
                 <ul className="mt-4 space-y-2 text-sm">
                   {[
                     ["Krishi Mitra: 2 bags (50 kg)", "₹5,000"],
@@ -436,28 +591,80 @@ export default function ProductPage() {
             <p className="mt-3 text-center text-muted-foreground">From the first dose to your next season.</p>
           </FadeUp>
 
-          <div className="relative mt-12">
+          <div className="relative mt-14">
+            {/* center line */}
             <div className="absolute left-4 top-0 hidden h-full w-px bg-border md:left-1/2 md:block" />
-            <div className="space-y-6 md:space-y-10">
+
+            <div className="space-y-10">
               {timeline.map((t, i) => (
-                <FadeUp key={t.week} delay={i * 0.04}>
-                  <div className={`relative grid gap-4 md:grid-cols-2 md:gap-8 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
-                    <div className={`md:${i % 2 ? "pl-8 text-left" : "pr-8 text-right"}`}>
-                      <span className="inline-block rounded-full bg-primary px-4 py-1 text-xs font-bold uppercase tracking-wider text-primary-foreground">
+                <FadeUp key={t.week} delay={i * 0.05}>
+                  <div
+                    className={`relative grid items-center gap-8 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""
+                      }`}
+                  >
+                    {/* LEFT SIDE */}
+                    <div
+                      className={`${i % 2 ? "md:pl-10" : "md:pr-10 md:text-right"
+                        }`}
+                    >
+                      <span className="inline-block rounded-full bg-primary px-4 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground">
                         {t.week}
                       </span>
-                      <h3 className="mt-3 font-display text-xl font-bold">{t.title}</h3>
+
+                      <h3 className="mt-4 font-display text-2xl font-bold">
+                        {t.title}
+                      </h3>
                     </div>
-                    <div className={`md:${i % 2 ? "pr-8 text-right" : "pl-8"}`}>
-                      <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
-                        <p className="text-sm italic text-foreground">"{t.quote}"</p>
-                        <div className="mt-2 flex items-center gap-1 text-gold">
-                          {[0, 1, 2, 3, 4].map((s) => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
-                          <span className="ml-2 text-xs font-semibold text-muted-foreground">{t.who}</span>
+
+                    {/* RIGHT SIDE */}
+                    <div className={`${i % 2 ? "md:pr-10" : "md:pl-10"}`}>
+                      <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-soft transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+
+                        {/* IMAGE */}
+                        <div className="overflow-hidden">
+                          <img
+                            src={t.image}
+                            alt={t.title}
+                            className="h-52 w-full object-cover transition duration-500 hover:scale-105"
+                          />
+                        </div>
+
+                        {/* CONTENT */}
+                        <div className="p-5">
+
+                          <p className="italic text-muted-foreground">
+                            "{t.quote}"
+                          </p>
+
+                          <div className="mt-5 flex items-center justify-between">
+
+                            <div>
+                              <div className="font-semibold">
+                                {t.who}
+                              </div>
+
+                              <div className="mt-2 flex text-gold">
+                                {[1, 2, 3, 4, 5].map((s) => (
+                                  <Star
+                                    key={s}
+                                    className="h-4 w-4 fill-current"
+                                  />
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                              Verified Farmer
+                            </div>
+
+                          </div>
+
                         </div>
                       </div>
                     </div>
-                    <span className="absolute left-4 top-2 h-3 w-3 -translate-x-1/2 rounded-full bg-gold ring-4 ring-background md:left-1/2" />
+
+                    {/* CENTER DOT */}
+                    <div className="absolute left-4 top-7 hidden h-4 w-4 -translate-x-1/2 rounded-full border-4 border-background bg-gold md:block md:left-1/2" />
                   </div>
                 </FadeUp>
               ))}
@@ -591,8 +798,77 @@ export default function ProductPage() {
         </div>
       </section>
 
+      {/* ---------- FINAL CTA ---------- */}
+      <section className="relative overflow-hidden py-20">
+        {/* Background */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(8,34,28,.78), rgba(8,34,28,.82)), url('/cta-banner.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-5xl px-5 text-center text-white">
+
+          <span className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-bold uppercase tracking-wider text-gold-foreground">
+            <Award className="h-4 w-4" />
+            Limited Time Offer
+          </span>
+
+          <h2 className="mt-6 font-display text-4xl font-black leading-tight md:text-5xl">
+            Grow More.
+            <br />
+            Spend Less.
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/80">
+            Join <span className="font-bold text-gold">50,000+ farmers</span> already
+            growing healthier crops with Krishi Mitra.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm font-medium">
+
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-gold" />
+              Up to 60% Lower Cost
+            </div>
+
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-gold" />
+              30–50% Higher Yield
+            </div>
+
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-gold" />
+              Money-Back Guarantee
+            </div>
+
+          </div>
+
+          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+
+            <CtaButton className="px-10 py-4 text-base">
+              Order Now
+            </CtaButton>
+
+            <a
+              href="tel:+917980334730"
+              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-8 py-4 font-semibold backdrop-blur transition hover:bg-white/20"
+            >
+              <Phone className="mr-2 h-5 w-5" />
+              Call Now
+            </a>
+
+          </div>
+
+        </div>
+      </section>
+
       {/* ---------- TRUST / CONTACT ---------- */}
-      <section id="contact" className="scroll-mt-24 bg-primary py-16 text-primary-foreground md:py-24">
+      {/* <section id="contact" className="scroll-mt-24 bg-primary py-16 text-primary-foreground md:py-24">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-3">
           <FadeUp>
             <div className="font-bengali text-sm text-gold">আমাদের সম্পর্কে</div>
@@ -634,7 +910,7 @@ export default function ProductPage() {
             </div>
           </FadeUp>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

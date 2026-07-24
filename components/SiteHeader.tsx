@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Menu, X, Phone, Sprout } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const nav = [
   { to: "/#home", label: "Home", bn: "হোম" },
@@ -19,8 +20,14 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-hero shadow-soft transition-transform group-hover:rotate-6">
-            <Sprout className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
+          <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-gold bg-white shadow-soft transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src="/logo.jpeg" // replace with your logo path
+              alt="Krishi Kalyan Group Logo"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
           <div className="leading-tight">
             <div className="font-display text-lg font-bold text-foreground">K.Krishi Kalyan</div>

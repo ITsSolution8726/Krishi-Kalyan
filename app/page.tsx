@@ -109,6 +109,7 @@ const usp = [
   { k: "10+", v: "Service verticals" },
   { k: "₹30k", v: "Potential monthly income*" },
 ];
+
 const benefits = [
   {
     icon: Coins,
@@ -147,6 +148,7 @@ const benefits = [
     d: "Rural youth are trained as agri-entrepreneurs, dealers and mushroom-unit operators — building local livelihoods at home.",
   },
 ];
+
 const achievements = [
   {
     img: "./cert-daesi-gold.jpg",
@@ -390,11 +392,9 @@ export default function HomePage() {
     <>
       {/* HERO */}
       <HeroSlider />
+
       {/* USE & BENEFITS OF FARMERS */}
-      <section
-        id="benefits"
-        className="bg-cream border-y border-border scroll-mt-20"
-      >
+      <section id="benefits" className="bg-cream border-y border-border scroll-mt-20" >
         <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
           {/* Section Heading */}
           <FadeIn>
@@ -632,10 +632,7 @@ export default function HomePage() {
       </section>
 
       {/* ABOUT */}
-      <section
-        id="about"
-        className="border-b border-border bg-cream scroll-mt-20"
-      >
+      <section id="about" className="border-b border-border bg-cream scroll-mt-20" >
         <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
             <FadeIn direction="left">
