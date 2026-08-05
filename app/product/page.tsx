@@ -185,7 +185,7 @@ export default function ProductPage() {
       {/* ---------- HERO ---------- */}
       <section className="relative overflow-hidden bg-[oklch(0.28_0.06_210)] text-[oklch(0.985_0.012_95)]">
         {/* Before / After split */}
-        <div className="mx-auto grid max-w-6xl gap-1 px-3 pt-8 md:grid-cols-2 md:px-6 md:pt-12">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-1 px-3 pt-8 md:px-6 md:pt-12">
           <div className="relative aspect-[4/3] overflow-hidden rounded-l-2xl">
             <img src={"./before.png"} alt="Tired soil before" className="h-full w-full object-cover grayscale-[40%]" />
             <span className="absolute left-3 top-3 rounded-full bg-clay px-3 py-1 text-xs font-bold uppercase text-clay-foreground">Before</span>
@@ -302,7 +302,7 @@ export default function ProductPage() {
       </section>
 
       {/* ---------- CROPS ---------- */}
-      <section className="bg-[oklch(0.22_0.05_150)] py-16 text-white md:py-24">
+      <section className="bg-[oklch(0.22_0.05_150)] py-8 text-white md:py-16">
         <div className="mx-auto max-w-7xl px-5">
           <FadeUp>
             <h2 className="text-center font-display text-3xl font-black md:text-4xl">
@@ -318,9 +318,7 @@ export default function ProductPage() {
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {crops.map((crop, i) => (
               <FadeUp key={crop.en} delay={i * 0.05}>
-                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] transition-all duration-500 hover:-translate-y-2 hover:border-gold/40 hover:shadow-2xl hover:shadow-gold/10">
-
-                  {/* Image */}
+                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] transition-all duration-500 hover:-translate-y-2 hover:border-gold/40 hover:shadow-2xl hover:shadow-gold/10">  {/* Image */}
                   <div className="relative aspect-square overflow-hidden">
                     <Image
                       src={crop.image}
@@ -334,7 +332,7 @@ export default function ProductPage() {
 
                     {/* Crop Name */}
                     <div className="absolute bottom-7 left-7 z-10">
-                      <h3 className="mt-2 font-bengali text-4xl font-bold leading-none text-gold drop-shadow-lg">
+                      <h3 className="mt-2 font-bengali tex-2xl md:text-4xl font-bold leading-none text-gold drop-shadow-lg">
                         {crop.bn}
                       </h3>
                     </div>
@@ -402,7 +400,7 @@ export default function ProductPage() {
                 <img
                   src="./npk.png"
                   alt="Krishi Mitra"
-                  className="w-full aspect-[21/9] object-cover"
+                  className="w-full aspect-[21/12] object-cover"
                 />
               </div>
             </FadeUp>
@@ -412,7 +410,7 @@ export default function ProductPage() {
                 <FadeUp key={n.title} delay={i * 0.05}>
                   <div
                     className="
-          group flex h-full min-h-[220px] flex-col
+          group flex h-full min-h-[180px] flex-col
           rounded-2xl border border-border
           bg-card p-4
           shadow-soft
@@ -422,32 +420,33 @@ export default function ProductPage() {
           hover:shadow-2xl hover:shadow-gold/10
         "
                   >
-                    {/* Icon */}
-                    <div
-                      className={`
-            mb-5 flex h-14 w-14 items-center justify-center
-            rounded-2xl bg-primary/10
-            transition-all duration-500
-            group-hover:scale-110
-            group-hover:rotate-6
-            ${n.color}
-          `}
-                    >
-                      <n.icon className="h-7 w-7 transition-transform duration-500 group-hover:scale-110" />
+                    {/* Icon + Title */}
+                    <div className="mb-5 flex items-center gap-4">
+                      <div
+                        className={`
+      flex h-14 w-14 shrink-0 items-center justify-center
+      rounded-2xl bg-primary/10
+      transition-all duration-500
+      group-hover:scale-110
+      group-hover:rotate-6
+      ${n.color}
+    `}
+                      >
+                        <n.icon className="h-7 w-7 transition-transform duration-500 group-hover:scale-110" />
+                      </div>
+
+                      <h3 className="font-display text-xl font-bold leading-tight transition-colors duration-300 group-hover:text-gold">
+                        {n.title}
+                      </h3>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="font-display text-xl font-bold transition-colors duration-300 group-hover:text-gold">
-                      {n.title}
-                    </h3>
-
                     {/* Description */}
-                    <p className="mt-2 flex-1 text-sm leading-7 text-muted-foreground">
+                    <p className="text-sm leading-7 text-muted-foreground">
                       {n.desc}
                     </p>
 
                     {/* Bottom Accent */}
-                    <div className="mt-2 h-1 w-12 rounded-full bg-gold/30 transition-all duration-500 group-hover:w-full group-hover:bg-gold" />
+                    <span className="mt-2 h-1 w-12 rounded-full bg-gold/30 transition-all duration-500 group-hover:w-full group-hover:bg-gold" />
                   </div>
                 </FadeUp>
               ))}

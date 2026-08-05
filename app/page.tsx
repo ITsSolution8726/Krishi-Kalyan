@@ -193,6 +193,13 @@ const achievements = [
     cert: "/certificates/valuechain.pdf",
   },
   {
+  img: "./udyam-certificate.png", // Screenshot/image of the certificate
+  title: "Udyam Registration (MSME) Certificate",
+  date: "27 July 2026",
+ desc: "MSME-recognised Micro Enterprise under the Government of India for manufacturing quality agricultural products.",
+  cert: "/certificates/udyam-registration.pdf",
+},
+  {
     img: "./forestcap-training-team.jpg",
     title: "Forest Cap Training Centre — Awards",
     date: "20 Nov 2025",
@@ -709,7 +716,7 @@ export default function HomePage() {
                   {/* Bottom Image */}
                   <div className="relative overflow-hidden rounded-3xl shadow-soft">
                     <img
-                      src="./dasavuja.jpg"
+                      src="./dashavuja.png"
                       alt="Modern farming field"
                       loading="lazy"
                       className="h-76 w-full object-cover transition-transform duration-500 hover:scale-105"
