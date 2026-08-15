@@ -2,152 +2,10 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import {
-  Star, Truck, ShieldCheck, Award, Leaf, Sprout, Wheat, Apple, Carrot,
-  Coins, Flower2, Home, Check, X, Phone, Mail, ChevronDown, ShoppingCart,
-  Droplets, Heart, FlaskConical, Scale, Feather, Activity,
-  CheckCircle2,
+  Star, ShieldCheck, Award, Check, X, Phone, Mail, ChevronDown, ShoppingCart, CheckCircle2, MapPin,
 } from "lucide-react";
 import Image from "next/image";
-
-// ------------------------------ DATA ------------------------------
-
-const stats = [
-  { icon: Star, k: "4.7/5", v: "Verified Rating" },
-  { icon: Heart, k: "50,000+", v: "Trusting Farmers" },
-  { icon: Truck, k: "Free", v: "Delivery in Bengal" },
-  { icon: Award, k: "Since 1985", v: "40 Years of Trust" },
-];
-
-const crops = [
-  {
-    bn: "আলু",
-    image: "crops/potato.png",
-    list: "Bigger tubers, healthier roots and improved soil fertility.",
-  },
-  {
-    bn: "ধান",
-    image: "crops/rice.png",
-    list: "Stronger plants with improved grain filling and higher yield.",
-  },
-  {
-    bn: "বেগুন",
-    image: "crops/brinjal.png",
-    list: "More flowering, better fruit quality and longer harvest period.",
-  },
-  {
-    bn: "করলা",
-    image: "crops/bitter-gourd.png",
-    list: "Healthy vines with improved flowering and fruit production.",
-  },
-  {
-    bn: "পটল",
-    image: "crops/potol.png",
-    list: "Supports vigorous growth and consistent fruit development.",
-  },
-  {
-    en: "Cauliflower",
-    bn: "ফুলকপি",
-    image: "crops/cabbage-coliflower.png",
-    list: "Compact heads, greener leaves and healthier crop development.",
-  },
-];
-
-const comparison = [
-  ["Yield", "Short-term boost", "2× sustained increase"],
-  ["Bags per acre", "5 bags", "2 bags (60% less)"],
-  ["Cost per acre", "₹18,000–₹25,000", "₹5,500–₹8,000"],
-  ["Pest spray cycle", "Every 10 days", "Once a month"],
-  ["Soil health", "Degrades over time", "Improves permanently"],
-  ["Water needs", "High", "20–30% lower"],
-  ["Next season", "Need more chemicals", "Need even less input"],
-  ["Reusable land", "No", "Yes, forever"],
-];
-
-const npk = [
-  { icon: Leaf, color: "text-primary", title: "High Organic Carbon", desc: "Soil becomes rich, holds water better, feeds beneficial microbes." },
-  { icon: Activity, color: "text-clay", title: "Nitrogen 1.5%", desc: "Bigger, greener leaves and strong vegetative growth." },
-  { icon: Flower2, color: "text-clay", title: "Phosphorus 2.5%", desc: "Stronger roots, more flowers and better fruit setting." },
-  { icon: ShieldCheck, color: "text-primary", title: "Potassium 2.5%", desc: "Disease resistance, drought tolerance, premium produce." },
-  { icon: Scale, color: "text-primary", title: "Neutral pH", desc: "Works in acidic, neutral or alkaline soil — no adjustments." },
-  { icon: Feather, color: "text-clay", title: "Light Weight", desc: "Easy to carry, spread and apply across the field." },
-];
-
-const timeline = [
-  {
-    week: "Week 1–2",
-    title: "Leaves look fresher and greener",
-    image: "./timeline/week1.png",
-    quote: "Within a week the leaves looked alive again.",
-    who: "Radha B., Hooghly",
-  },
-  {
-    week: "Week 3–4",
-    title: "Stronger stems, visible new shoots",
-    image: "./timeline/week3.png",
-    quote: "Two doses in three weeks — best growth I've seen.",
-    who: "Samar S., Singur",
-  },
-  {
-    week: "Month 1",
-    title: "More flowers, better fruit set, fewer pests",
-    image: "./timeline/month1.png",
-    quote: "Marigolds and chillies came in fuller and stronger.",
-    who: "Karthik P., Burdwan",
-  },
-  {
-    week: "Month 2–3",
-    title: "Soil softens, water holds better",
-    image: "./timeline/month2.png",
-    quote: "My soil became soft and healthy. Crops grew better.",
-    who: "Raghu R., Nadia",
-  },
-  {
-    week: "Harvest",
-    title: "30–50% higher yield, premium quality",
-    image: "./timeline/harvest.png",
-    quote: "Yield went from 2 tonnes to nearly 5 tonnes per acre.",
-    who: "Commercial Grower",
-  },
-  {
-    week: "Next Season",
-    title: "Healthier soil — need even less input",
-    image: "./timeline/nextseason.png",
-    quote: "After six months the plants and trees are lush.",
-    who: "Lathika G., Murshidabad",
-  },
-];
-
-const safetyGroups = [
-  { icon: Apple, title: "Safe for Food Crops", points: ["No chemical residue on produce", "Export-quality certification ready", "Safe to eat immediately after harvest", "Compliant with organic standards"] },
-  { icon: Sprout, title: "Safe for Soil", points: ["Improves soil microbiome naturally", "No salinity or toxicity buildup", "Never burns the root zone", "Reusable land — gets better every season"] },
-  { icon: Droplets, title: "Safe for Water", points: ["Doesn't contaminate groundwater", "Zero chemical runoff into rivers", "Improves water retention in soil", "Reduces water waste"] },
-  { icon: Heart, title: "Safe for Your Family", points: ["No skin irritation — touch without gloves", "Safe if children or pets touch", "No harmful fumes or odour", "Won't trigger allergies"] },
-];
-
-const tiers = [
-  {
-    tag: "Popular Choice", size: "5 kg", price: "₹899", strike: "₹1,350", save: "Save 33%",
-    best: "25–30 plants, home & terrace gardens", lasts: "Lasts 2–3 months", featured: false,
-  },
-  {
-    tag: "Best Value", size: "10 kg", price: "₹1,199", strike: "₹2,500", save: "Save 52%",
-    best: "Large garden, small farm (0.25–0.5 acre)", lasts: "Lasts a full season", featured: true,
-  },
-  {
-    tag: "Farmer's Choice", size: "25 kg", price: "₹2,599", strike: "₹6,200", save: "Save 58%",
-    best: "1 acre field, commercial farming", lasts: "Full crop cycle coverage", featured: false,
-  },
-];
-
-const faqs = [
-  { q: "Is it really better than DAP or Urea?", a: "Yes. Farmers consistently report ~2× yield with only 2 bags instead of 5 — and with zero soil damage. DAP and urea give a short-term boost but kill beneficial microbes. Krishi Mitra heals the soil permanently and the results compound every season." },
-  { q: "Will it work for my specific crop?", a: "It works for every soil-grown crop — paddy, jute, vegetables, fruits, flowers, pulses, cotton and sugarcane. If it grows in soil, this works." },
-  { q: "How much do I actually need?", a: "Field crops: 25–50 kg per acre (at most 2 bags). Home gardens: 50–100 g per pot. Most farmers replace 5 bags of chemical fertiliser with 2 bags of Krishi Mitra." },
-  { q: "When will I see results?", a: "Days 7–15: greener, fresher leaves. Weeks 3–4: stronger growth and more flowers. Harvest: 30–50% higher yield in most fields." },
-  { q: "Is it safe for vegetables I'll eat?", a: "100% safe. Zero chemical residue. You can harvest and eat the same day. Safe for children and pets — perfect for export-grade organic produce." },
-  { q: "What if my soil is badly damaged by chemicals?", a: "It is ideal for restoration. One farmer reported soil going from dry and cracked to soft and healthy in a single season — driven by high organic carbon and the live microbe culture." },
-  { q: "Why should I trust Krishi Kalyan Group?", a: "We're a DAESI-certified agri-enterprise serving Bengal for 40 years, with lab-tested batches, thousands of verified reviews and a dealer network across the state." },
-];
+import { stats, crops, comparison, npk, timeline, safetyGroups, tiers, faqs, } from '@/data/product';
 
 // ------------------------------ UI HELPERS ------------------------------
 
@@ -179,6 +37,115 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 
 export default function ProductPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [selectedTier, setSelectedTier] = useState<(typeof tiers)[number] | null>(null);
+
+  const [orderForm, setOrderForm] = useState({
+    name: "",
+    whatsapp: "",
+    address: "",
+  });
+
+  const [orderErrors, setOrderErrors] = useState({
+    name: "",
+    whatsapp: "",
+    address: "",
+  });
+
+  const handleBuyNow = (tier: (typeof tiers)[number]) => {
+    setSelectedTier(tier);
+
+    // Reset form whenever a new pack is selected
+    setOrderForm({
+      name: "",
+      whatsapp: "",
+      address: "",
+    });
+
+    setOrderErrors({
+      name: "",
+      whatsapp: "",
+      address: "",
+    });
+  };
+
+  const validateOrderForm = () => {
+    const errors = {
+      name: "",
+      whatsapp: "",
+      address: "",
+    };
+
+    // Name validation
+    const name = orderForm.name.trim();
+
+    if (!name) {
+      errors.name = "Please enter your name.";
+    } else if (name.length < 2) {
+      errors.name = "Name must be at least 2 characters.";
+    } else if (!/^[A-Za-z\s.'-]+$/.test(name)) {
+      errors.name = "Please enter a valid name.";
+    }
+
+    // WhatsApp number validation
+    const whatsapp = orderForm.whatsapp.replace(/\D/g, "");
+
+    if (!whatsapp) {
+      errors.whatsapp = "Please enter your WhatsApp number.";
+    } else if (whatsapp.length !== 10) {
+      errors.whatsapp = "WhatsApp number must be exactly 10 digits.";
+    } else if (!/^[6-9]\d{9}$/.test(whatsapp)) {
+      errors.whatsapp = "Please enter a valid Indian mobile number.";
+    }
+
+    // Address validation
+    if (!orderForm.address.trim()) {
+      errors.address = "Please enter your delivery address.";
+    } else if (orderForm.address.trim().length < 10) {
+      errors.address = "Please enter a complete delivery address.";
+    }
+
+    setOrderErrors(errors);
+
+    return !Object.values(errors).some(Boolean);
+  };
+
+  const handleOrderSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!selectedTier) return;
+
+    const isValid = validateOrderForm();
+
+    if (!isValid) return;
+
+    const companyWhatsapp = "917980334730";
+
+    const message = `
+Hello Krishi Kalyan,
+
+I would like to place an order for Krishi Mitra.
+
+*Selected Pack*
+Pack: ${selectedTier.size}
+Price: ${selectedTier.price}
+${selectedTier.tag ? `Type: ${selectedTier.tag}` : ""}
+
+*Customer Details*
+Name: ${orderForm.name.trim()}
+WhatsApp Number: ${orderForm.whatsapp}
+Address: ${orderForm.address.trim()}
+
+Please confirm my order and delivery details.
+
+Thank you.
+`.trim();
+
+    const whatsappUrl = `https://wa.me/${companyWhatsapp}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.location.href = whatsappUrl;
+  };
 
   return (
     <div className="bg-background text-foreground">
@@ -738,12 +705,17 @@ export default function ProductPage() {
                     ))}
                   </ul>
 
-                  <a
-                    href="#contact"
-                    className={`mt-6 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold uppercase tracking-wide transition-transform hover:-translate-y-0.5 ${t.featured ? "bg-gold text-gold-foreground shadow-glow" : "bg-primary text-primary-foreground shadow-soft"}`}
+                  <button
+                    type="button"
+                    onClick={() => handleBuyNow(t)}
+                    className={`mt-6 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold uppercase tracking-wide transition-transform hover:-translate-y-0.5 ${t.featured
+                      ? "bg-gold text-gold-foreground shadow-glow"
+                      : "bg-primary text-primary-foreground shadow-soft"
+                      }`}
                   >
-                    <ShoppingCart className="h-4 w-4" /> Buy Now
-                  </a>
+                    <ShoppingCart className="h-4 w-4" />
+                    Buy Now
+                  </button>
                 </div>
               </FadeUp>
             ))}
@@ -866,50 +838,241 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* ---------- TRUST / CONTACT ---------- */}
-      {/* <section id="contact" className="scroll-mt-24 bg-primary py-16 text-primary-foreground md:py-24">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-3">
-          <FadeUp>
-            <div className="font-bengali text-sm text-gold">আমাদের সম্পর্কে</div>
-            <h3 className="mt-1 font-display text-2xl font-black">Trusted Quality. Since 1985.</h3>
-            <ul className="mt-5 space-y-2 text-sm text-primary-foreground/85">
-              {["40 years in agri-trade", "DAESI-certified dealership", "Lab-tested every batch", "Lakhs of bags delivered", "4.7/5 verified rating", "Pan-Bengal delivery"].map((x) => (
-                <li key={x} className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" />{x}</li>
-              ))}
-            </ul>
-          </FadeUp>
-          <FadeUp delay={0.05}>
-            <div className="font-bengali text-sm text-gold">আমরা কারা</div>
-            <h3 className="mt-1 font-display text-2xl font-black">Who We Are</h3>
-            <p className="mt-5 text-sm leading-relaxed text-primary-foreground/85">
-              Krishi Kalyan Group is a DAESI-certified agri-enterprise based in Singur, Hooghly.
-              For 40 years we have supported Bengal's farmers with quality inputs, scientific
-              training and modern farming projects — from mushroom cultivation to organic
-              bio-fertilisers like Krishi Mitra.
-            </p>
-            <h3 className="mt-6 font-display text-xl font-black">Our Mission</h3>
-            <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">
-              Close the gap in Indian agriculture with honest, high-quality organic products that
-              raise farmer income while healing the soil. No shortcuts, no false promises — just
-              results you can see in the field.
-            </p>
-          </FadeUp>
-          <FadeUp delay={0.1}>
-            <div className="font-bengali text-sm text-gold">যোগাযোগ</div>
-            <h3 className="mt-1 font-display text-2xl font-black">Contact Us</h3>
-            <ul className="mt-5 space-y-3 text-sm">
-              <li className="flex items-center gap-3"><Mail className="h-4 w-4 text-gold" /> sales@krishikalyan.in</li>
-              <li className="flex items-center gap-3"><Phone className="h-4 w-4 text-gold" /> +91 79803 34730</li>
-              <li className="flex items-center gap-3"><FlaskConical className="h-4 w-4 text-gold" /> Mon – Sat, 9 AM – 6 PM</li>
-            </ul>
-            <div className="mt-6 rounded-2xl border border-white/15 bg-white/[0.07] p-5">
-              <div className="font-display text-lg font-bold">Join 50,000+ farmers today.</div>
-              <p className="mt-1 text-sm text-primary-foreground/80">Limited stock. Free delivery. COD accepted.</p>
-              <CtaButton className="mt-4 w-full">Order Now — Up to 60% Off</CtaButton>
+      {/* ---------- ORDER OVERLAY ---------- */}
+      {selectedTier && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedTier(null)}
+        >
+          <div
+            className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-background shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setSelectedTier(null)}
+              aria-label="Close order form"
+              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-foreground transition hover:bg-destructive hover:text-white"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Header */}
+            <div className="bg-primary p-6 text-primary-foreground">
+              <div className="pr-10">
+                <div className="text-xs font-bold uppercase tracking-wider text-gold">
+                  Place Your Order
+                </div>
+
+                <h2 className="mt-1 font-display text-2xl font-black">
+                  Krishi Mitra
+                </h2>
+
+                <p className="mt-1 text-sm text-primary-foreground/75">
+                  Enter your details and we'll confirm your order on WhatsApp.
+                </p>
+              </div>
             </div>
-          </FadeUp>
+
+            <div className="p-6">
+              {/* Selected Pack */}
+              <div className="rounded-2xl border border-gold/40 bg-gold/10 p-5">
+                <div className="text-xs font-bold uppercase tracking-wider text-clay">
+                  Selected Pack
+                </div>
+
+                <div className="mt-2 flex items-end justify-between gap-4">
+                  <div>
+                    <h3 className="font-display text-2xl font-black">
+                      {selectedTier.size}
+                    </h3>
+
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {selectedTier.tag}
+                    </p>
+                  </div>
+
+                  <div className="text-right">
+                    <div className="font-display text-2xl font-black text-primary">
+                      {selectedTier.price}
+                    </div>
+
+                    <div className="text-sm text-muted-foreground line-through">
+                      {selectedTier.strike}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-3 inline-block rounded-md bg-gold/20 px-2 py-1 text-xs font-bold text-clay">
+                  {selectedTier.save}
+                </div>
+              </div>
+
+              {/* Order Form */}
+              <form onSubmit={handleOrderSubmit} className="mt-6 space-y-5">
+                {/* Name */}
+                <div>
+                  <label
+                    htmlFor="order-name"
+                    className="mb-2 block text-sm font-semibold"
+                  >
+                    Full Name
+                  </label>
+
+                  <input
+                    id="order-name"
+                    type="text"
+                    value={orderForm.name}
+                    onChange={(e) => {
+                      const value = e.target.value;
+
+                      setOrderForm((prev) => ({
+                        ...prev,
+                        name: value,
+                      }));
+
+                      if (orderErrors.name) {
+                        setOrderErrors((prev) => ({
+                          ...prev,
+                          name: "",
+                        }));
+                      }
+                    }}
+                    placeholder="Enter your full name"
+                    autoComplete="name"
+                    className={`w-full rounded-xl border bg-card px-4 py-3 text-sm outline-none transition placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 ${orderErrors.name
+                        ? "border-destructive"
+                        : "border-border focus:border-primary"
+                      }`}
+                  />
+
+                  {orderErrors.name && (
+                    <p className="mt-1.5 text-xs font-medium text-destructive">
+                      {orderErrors.name}
+                    </p>
+                  )}
+                </div>
+
+                {/* WhatsApp */}
+                <div>
+                  <label
+                    htmlFor="order-whatsapp"
+                    className="mb-2 block text-sm font-semibold"
+                  >
+                    WhatsApp Number
+                  </label>
+
+                  <div
+                    className={`flex overflow-hidden rounded-xl border bg-card transition focus-within:ring-2 focus-within:ring-primary/20 ${orderErrors.whatsapp
+                        ? "border-destructive"
+                        : "border-border focus-within:border-primary"
+                      }`}
+                  >
+                    <span className="flex items-center border-r border-border bg-secondary px-4 text-sm font-semibold">
+                      +91
+                    </span>
+
+                    <input
+                      id="order-whatsapp"
+                      type="tel"
+                      inputMode="numeric"
+                      value={orderForm.whatsapp}
+                      onChange={(e) => {
+                        const value = e.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, 10);
+
+                        setOrderForm((prev) => ({
+                          ...prev,
+                          whatsapp: value,
+                        }));
+
+                        if (orderErrors.whatsapp) {
+                          setOrderErrors((prev) => ({
+                            ...prev,
+                            whatsapp: "",
+                          }));
+                        }
+                      }}
+                      placeholder="9876543210"
+                      autoComplete="tel"
+                      maxLength={10}
+                      className="w-full bg-transparent px-4 py-3 text-sm outline-none placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  {orderErrors.whatsapp && (
+                    <p className="mt-1.5 text-xs font-medium text-destructive">
+                      {orderErrors.whatsapp}
+                    </p>
+                  )}
+                </div>
+
+                {/* Address */}
+                <div>
+                  <label
+                    htmlFor="order-address"
+                    className="mb-2 block text-sm font-semibold"
+                  >
+                    Delivery Address
+                  </label>
+
+                  <div
+                    className={`relative rounded-xl border bg-card transition focus-within:ring-2 focus-within:ring-primary/20 ${orderErrors.address
+                        ? "border-destructive"
+                        : "border-border focus-within:border-primary"
+                      }`}
+                  >
+                    <MapPin className="pointer-events-none absolute left-4 top-4 h-5 w-5 text-muted-foreground" />
+
+                    <textarea
+                      id="order-address"
+                      value={orderForm.address}
+                      onChange={(e) => {
+                        setOrderForm((prev) => ({
+                          ...prev,
+                          address: e.target.value,
+                        }));
+
+                        if (orderErrors.address) {
+                          setOrderErrors((prev) => ({
+                            ...prev,
+                            address: "",
+                          }));
+                        }
+                      }}
+                      placeholder="Enter your complete delivery address"
+                      rows={4}
+                      autoComplete="street-address"
+                      className="w-full resize-none bg-transparent py-3 pl-12 pr-4 text-sm outline-none placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  {orderErrors.address && (
+                    <p className="mt-1.5 text-xs font-medium text-destructive">
+                      {orderErrors.address}
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-4 text-sm font-bold uppercase tracking-wide text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#20bd5a]"
+                >
+                  <CheckCircle2 className="h-5 w-5" />
+                  Continue on WhatsApp
+                </button>
+
+                <p className="text-center text-xs text-muted-foreground">
+                  Your order details will be sent to Krishi Kalyan on WhatsApp.
+                </p>
+              </form>
+            </div>
+          </div>
         </div>
-      </section> */}
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
-import { Sprout, Phone, MapPin, Mail } from "lucide-react";
+import { Phone, MapPin, Mail } from "lucide-react";
+import Image from "next/image";
 
 export function SiteFooter() {
   return (
@@ -8,9 +9,16 @@ export function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent">
-                <Sprout className="h-5 w-5 text-primary" strokeWidth={2.5} />
+              <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-accent bg-white">
+                <Image
+                  src="/logo.jpeg"
+                  alt="K.Krishi Kalyan logo"
+                  fill
+                  className="object-cover"
+                  sizes="40px"
+                />
               </div>
+
               <div>
                 <div className="font-display text-lg font-bold">
                   K.Krishi Kalyan
@@ -47,10 +55,15 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
+                <a href="/product" className="hover:text-accent">
+                  Product
+                </a>
+              </li>
+              {/* <li>
                 <a href="/#investment" className="hover:text-accent">
                   Investment
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 

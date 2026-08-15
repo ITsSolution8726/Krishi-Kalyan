@@ -1,393 +1,20 @@
 "use client";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Sprout,
-  GraduationCap,
-  Tractor,
-  ShieldCheck,
-  TrendingUp,
-  Users,
-  ArrowRight,
-  Leaf,
-  BadgeCheck,
-  Phone,
-  Quote,
-  Target,
-  Eye,
-  Award,
-  Store,
-  FlaskConical,
-  Globe2,
-  Wheat,
-  CheckCircle2,
-  RefreshCcw,
+  Sprout, ShieldCheck, TrendingUp, Users, ArrowRight, Leaf, BadgeCheck, Phone,
+  Quote, Award, CheckCircle2, RefreshCcw, FileText, Trophy, X, MapPin,
   Mail,
-  MapPin,
-  MessageCircle,
-  Send,
-  FileText,
-  Trophy,
-  BookOpen,
-  Coins,
-  HeartHandshake,
-  LineChart,
-  Sun,
-  X,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { FadeIn, SectionEyebrow } from "@/components/Section";
 import { HeroSlider } from "@/components/HeroSlider";
-
-const services = [
-  {
-    icon: Sprout,
-    en: "Agri Inputs & Dealership",
-    bn: "কৃষি বীজ ও কীটনাশক",
-    desc: "Govt-approved seeds, fertilizers, pesticides and crop-specific advisory.",
-  },
-  {
-    icon: GraduationCap,
-    en: "Farmer Training & Workshops",
-    bn: "চাষি প্রশিক্ষণ",
-    desc: "DAESI-led extension, field visits and skill development for youth.",
-  },
-  {
-    icon: Globe2,
-    en: "Market & Export Linkage",
-    bn: "বাজার সংযোগ",
-    desc: "Buyer/mandi connections and export-import guidance.",
-  },
-  {
-    icon: Leaf,
-    en: "Mushroom Farming Projects",
-    bn: "মাশরুম চাষ প্রকল্প",
-    desc: "Setup, training and buy-back model under Forest Cap Mushroom.",
-  },
-  {
-    icon: TrendingUp,
-    en: "Investment-Based Models",
-    bn: "বিনিয়োগ পরিকল্পনা",
-    desc: "Structured agri-business plans with potential monthly income.",
-  },
-  {
-    icon: Tractor,
-    en: "Machinery & Irrigation",
-    bn: "যন্ত্রপাতি ও সেচ",
-    desc: "Spray machines, modern equipment and drip/fountain solutions.",
-  },
-  {
-    icon: ShieldCheck,
-    en: "Crop Protection & Soil Care",
-    bn: "শস্য সুরক্ষা",
-    desc: "Soil testing, pH analysis, pest & disease management.",
-  },
-  {
-    icon: Store,
-    en: "Dealer Network",
-    bn: "ডিলার নেটওয়ার্ক",
-    desc: "Local dealer network, FPO and farmer group support.",
-  },
-  {
-    icon: FlaskConical,
-    en: "Consultancy & Extension",
-    bn: "কৃষি পরামর্শ",
-    desc: "Crop planning, soil testing and expert field visits.",
-  },
-  {
-    icon: Wheat,
-    en: "Horticulture & Allied",
-    bn: "উদ্যান কৃষি",
-    desc: "Capsicum, dragon fruit, dates, nursery & roof gardening.",
-  },
-
-];
-
-const usp = [
-  { k: "40+", v: "Years of agri-trade legacy" },
-  { k: "DAESI", v: "Govt. certified dealer" },
-  { k: "10+", v: "Service verticals" },
-  { k: "₹30k", v: "Potential monthly income*" },
-];
-
-const benefits = [
-  {
-    icon: Coins,
-    t: "Higher, Stable Income",
-    bn: "নিশ্চিত আয়",
-    d: "Income-based farming models (₹15k–₹60k/month potential) with structured buy-back so farmers don't depend on volatile mandi prices.",
-  },
-  {
-    icon: BookOpen,
-    t: "Scientific Knowledge Transfer",
-    bn: "বৈজ্ঞানিক জ্ঞান",
-    d: "DAESI-certified guidance on crop selection, spacing, soil pH, IPM and post-harvest — directly at the field, in Bengali.",
-  },
-  {
-    icon: ShieldCheck,
-    t: "Insurance & Buy-Back Safety",
-    bn: "বিমা ও সুরক্ষা",
-    d: "Forest Cap Mushroom projects come insured by Krishi Kalyan with a guaranteed buy-back, so your investment stays protected.",
-  },
-  {
-    icon: Sun,
-    t: "Year-Round Cropping",
-    bn: "সারা বছর চাষ",
-    d: "Polytunnels, drip irrigation and winter-vegetable rotations let farmers harvest across multiple seasons instead of one.",
-  },
-  {
-    icon: HeartHandshake,
-    t: "End-to-End Hand-Holding",
-    bn: "পাশে থাকি",
-    d: "From seed to sale — inputs, training, machinery, advisory and market linkage from one trusted local team.",
-  },
-  {
-    icon: LineChart,
-    t: "Youth Entrepreneurship",
-    bn: "যুব উদ্যোগ",
-    d: "Rural youth are trained as agri-entrepreneurs, dealers and mushroom-unit operators — building local livelihoods at home.",
-  },
-];
-
-const achievements = [
-  {
-    img: "./cert-daesi-gold.jpg",
-    title: "DAESI Gold Certificate — Highest Marks",
-    date: "23 Sept 2025",
-    desc: "Awarded the Gold Certificate by MANAGE, Hyderabad for securing the highest marks in TP No. 2884 of the one-year Diploma in Agricultural Extension Services for Input Dealers (DAESI), 2024–2025.",
-    cert: "/certificates/daesi-gold.pdf",
-  },
-  {
-    img: "./cert-daesi-diploma.jpg",
-    title: "DAESI Diploma — First Division with Distinction",
-    date: "Year 2024–2025",
-    desc: "One-year Diploma in Agricultural Extension Services for Input Dealers, organised at ATC-Chinsurah through SAMETI – West Bengal under MANAGE, Govt. of India.",
-    cert: "/certificates/daesi-diploma.pdf",
-  },
-  {
-    img: "./cert-ai-extension.jpg",
-    title: "Application of AI in Agricultural Extension",
-    date: "25–28 Nov 2025",
-    desc: "Executive Development Programme completed at Extension Education Institute (NE Region), Assam Agricultural University, Khanapara — Ministry of Agriculture & Farmers Welfare, GoI.",
-    cert: "/certificates/ai-extension.pdf",
-  },
-  {
-    img: "./cert-export-import.jpg",
-    title: "Export-Import Business Training",
-    date: "10 Jan 2025",
-    desc: "6-day online training on Export-Import Business by Global EXIM Institute — strengthening Krishi Kalyan's farm-to-export advisory under the Trust India Export vertical.",
-    cert: "/certificates/export-import-training.pdf",
-  },
-  {
-    img: "./certificate-export.jpg",
-    title: "SAMETI Certification — Export Orientation",
-    date: "08–10 July 2025",
-    desc: "Online training on Export Orientation in Agriculture & Allied Sectors completed at SAMETI-WB / ATC, Ramakrishna Mission Ashrama, Narendrapur.",
-    cert: "/certificates/export.pdf",
-  },
-  {
-    img: "./certificate-valuechain.jpg",
-    title: "SAMETI Certification — Value Chain Mgmt.",
-    date: "14–16 October 2025",
-    desc: "Online training on Value Chain Management in Crops & Commodities completed at SAMETI-WB / ATC — strengthening our farm-to-market advisory.",
-    cert: "/certificates/valuechain.pdf",
-  },
-  {
-  img: "./udyam-certificate.png", // Screenshot/image of the certificate
-  title: "Udyam Registration (MSME) Certificate",
-  date: "27 July 2026",
- desc: "MSME-recognised Micro Enterprise under the Government of India for manufacturing quality agricultural products.",
-  cert: "/certificates/udyam-registration.pdf",
-},
-  {
-    img: "./forestcap-training-team.jpg",
-    title: "Forest Cap Training Centre — Awards",
-    date: "20 Nov 2025",
-    desc: "Felicitation at the Forest Cap Training Centre — recognising our trainers and field team for outstanding contribution to farmer skill development across Hooghly.",
-  },
-  {
-    img: "./atma-kvk-meeting.jpg",
-    title: "ATMA, KVK & DDA Farmer Outreach",
-    date: "14 June 2025",
-    desc: "Joint awareness programme with ATMA, Krishi Vigyan Kendra and District Deputy Agriculture officials — bringing scientific extension talks directly to farmers.",
-  },
-  {
-    img: "./team.jpg",
-    title: "Krishi Kalyan Core Team",
-    date: "Singur, Hooghly",
-    desc: "Our 10-member core team behind Project Dasavuja — agronomists, dealers, trainers and field officers working with hundreds of farmers across Hooghly.",
-  },
-  {
-    img: "./group-meeting.jpg",
-    title: "Farmer Group Meeting — Ratanpur",
-    date: "6 January 2026",
-    desc: "Krishi-vishayak alochana-chakra at Ratanpur Palli Unnayan Samiti with SAI Crop Sciences. Crop-input demonstration and free samples distributed to participating farmers.",
-  },
-  {
-    img: "./polytunnel.jpg",
-    title: "Polytunnel Vegetable Cultivation",
-    date: "Ratanpur Fields",
-    desc: "Low-tunnel winter-vegetable demonstration plot — protected cultivation for early capsicum, cucurbits and leafy greens, raising both yield and farm-gate price.",
-  },
-  {
-    img: "./poster-business.jpg",
-    title: "Business Farming Outreach",
-    date: "Ongoing",
-    desc: '"Business Farming with Krishi Kalyan" weekly meetings — potato & winter vegetable training, problem-solving sessions and awards for innovative farmers.',
-  },
-  {
-    img: "./forestcap-logo.jpg",
-    title: "FSSAI-Registered Forest Cap Mushroom",
-    date: "Reg. No. 22826088000098",
-    desc: "Our mushroom vertical — button, oyster, shiitake and enoki — registered with FSSAI under K. Krishi Kallyan Group for healthy, fresh produce.",
-  },
-  {
-    img: "./mushroom-investment.jpg",
-    title: "Mushroom Units for Rural Youth",
-    date: "India 2025 Model",
-    desc: "₹4 lakh, 2-unit mushroom investment with ₹30,000/month potential income — insured by Krishi Kalyan with guaranteed buy-back for rural youth.",
-  },
-];
-
-const projects = [
-  // {
-  //   tag: "Flagship",
-  //   name: "Project DASAVUJA",
-  //   bn: "প্রকল্প দশভুজা",
-  //   img: "./dasavuja.jpg",
-  //   desc: "Our 10-pillar farmer ecosystem — crop science, horticulture, soil health, crop protection, irrigation, agri extension, trade & export, training, dealer network and market linkage — led by a dedicated team member per vertical.",
-  //   pillars: [
-  //     "Crop Science",
-  //     "Horticulture",
-  //     "Soil Health",
-  //     "Crop Protection",
-  //     "Irrigation",
-  //     "Agri Extension",
-  //     "Trade & Export",
-  //     "Training",
-  //     "Dealer Network",
-  //     "Market Linkage",
-  //   ],
-  // },
-  {
-    tag: "Investment",
-    name: "Forest Cap Mushroom",
-    bn: "ফরেস্ট ক্যাপ মাশরুম",
-    img: "./mushroom-farm-unit.jpg",
-    desc: "Modern mushroom cultivation venture under K. Krishi Kalyan Group — FSSAI registered, insured, with assured buy-back. Designed for first-time agri entrepreneurs and rural youth.",
-    pillars: [
-      "Setup support",
-      "Spawn & substrate",
-      "Training",
-      "Insurance",
-      "Buy-back",
-      "Monthly income*",
-    ],
-  },
-  {
-    tag: "Training",
-    name: "Forest Cap Training Centre",
-    bn: "ফরেস্ট ক্যাপ প্রশিক্ষণ কেন্দ্র",
-    img: "./forestcap-training-team.jpg",
-    desc: "Skill-development hub for farmers and rural youth — hands-on workshops on potato & winter vegetable farming, problem-solving sessions, awards for innovative farmers and DAESI-led extension classes in Bengali.",
-    pillars: [
-      "Workshops",
-      "Field practice",
-      "DAESI guidance",
-      "Awards",
-      "Mentorship",
-      "Bengali-medium classes",
-    ],
-  },
-  {
-    tag: "Input Services",
-    name: "Deasi Dealer Agri Input Services",
-    bn: "ডিএইএসআই ডিলার সেবা",
-    img: "./daesi-dealer-shop.jpg",
-    desc: "Govt. certified DAESI dealership offering quality seeds, fertilizers, pesticides, bio-inputs and crop-specific advisory — smart, digital agri-business with UPI payments, billing and farmer record-keeping.",
-    pillars: [
-      "Certified seeds",
-      "Fertilizers",
-      "Pesticides & bio-inputs",
-      "Crop advisory",
-      "Digital billing",
-      "Farmer records",
-    ],
-  },
-  {
-    tag: "Export",
-    name: "Trust India Export",
-    bn: "ট্রাস্ট ইন্ডিয়া এক্সপোর্ট",
-    img: "./trust-india-export.jpg",
-    desc: "Our export-import vertical, built on Global EXIM Institute training — connecting West Bengal produce (vegetables, spices, mushroom value-add) to wider Indian and overseas buyers with full compliance support.",
-    pillars: [
-      "Export documentation",
-      "Buyer sourcing",
-      "Quality grading",
-      "Packaging",
-      "Logistics",
-      "Compliance",
-    ],
-  },
-  {
-    tag: "Extension",
-    name: "Agricultural Marketing & Extension",
-    bn: "কৃষি বিপণন ও সম্প্রসারণ",
-    img: "./atma-kvk-meeting.jpg",
-    desc: "Joint outreach with ATMA, KVK and the District Deputy Agriculture office — village-level meetings, mandi linkage, FPO coordination and direct buyer connections so farmers earn fair, predictable prices.",
-    pillars: [
-      "ATMA / KVK link",
-      "Mandi connect",
-      "FPO support",
-      "Price advisory",
-      "Buyer matching",
-      "Post-harvest",
-    ],
-  },
-];
-
-const plans = [
-  {
-    name: "Starter",
-    units: "1 Unit",
-    price: "₹2 Lakh",
-    income: "₹15,000",
-    popular: false,
-    perks: [
-      "Setup & training",
-      "Spawn & substrate",
-      "Field guidance",
-      "Buy-back support",
-    ],
-  },
-  {
-    name: "Standard",
-    units: "2 Units",
-    price: "₹4 Lakh",
-    income: "₹30,000",
-    popular: true,
-    perks: [
-      "Everything in Starter",
-      "Insurance by Krishi Kalyan",
-      "Priority advisory",
-      "Modern equipment access",
-      "Monthly income model*",
-    ],
-  },
-  {
-    name: "Pro",
-    units: "4 Units",
-    price: "₹8 Lakh",
-    income: "₹60,000",
-    popular: false,
-    perks: [
-      "Everything in Standard",
-      "Dedicated mentor",
-      "Dealer network access",
-      "Export-import guidance",
-    ],
-  },
-];
+import {
+  services,
+  benefits,
+  achievements,
+  projects,
+  plans,
+} from "@/data/home";
 
 export default function HomePage() {
   const [certOpen, setCertOpen] = useState<{
@@ -395,6 +22,189 @@ export default function HomePage() {
     title: string;
     pdf?: string;
   } | null>(null);
+  const [contactOpen, setContactOpen] = useState(false);
+
+  const [selectedPlan, setSelectedPlan] = useState<(typeof plans)[number] | null>(
+    null
+  );
+
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    whatsapp: "",
+    email: "",
+    address: "",
+    message: "",
+  });
+
+  const [contactErrors, setContactErrors] = useState({
+    name: "",
+    whatsapp: "",
+    email: "",
+    address: "",
+    message: "",
+  });
+
+  const openContactForm = (plan?: (typeof plans)[number]) => {
+    setSelectedPlan(plan ?? null);
+
+    setContactForm({
+      name: "",
+      whatsapp: "",
+      email: "",
+      address: "",
+      message: "",
+    });
+
+    setContactErrors({
+      name: "",
+      whatsapp: "",
+      email: "",
+      address: "",
+      message: "",
+    });
+
+    setContactOpen(true);
+  };
+
+  const closeContactForm = () => {
+    setContactOpen(false);
+    setSelectedPlan(null);
+  };
+
+  const validateContactForm = () => {
+    const errors = {
+      name: "",
+      whatsapp: "",
+      email: "",
+      address: "",
+      message: "",
+    };
+
+    /* ---------------- NAME ---------------- */
+
+    const name = contactForm.name.trim();
+
+    if (!name) {
+      errors.name = "Please enter your name.";
+    } else if (name.length < 2) {
+      errors.name = "Name must be at least 2 characters.";
+    } else if (!/^[A-Za-z\s.'-]+$/.test(name)) {
+      errors.name = "Please enter a valid name.";
+    }
+
+    /* ---------------- WHATSAPP ---------------- */
+
+    const whatsapp = contactForm.whatsapp.replace(/\D/g, "");
+
+    if (!whatsapp) {
+      errors.whatsapp = "Please enter your WhatsApp number.";
+    } else if (whatsapp.length !== 10) {
+      errors.whatsapp = "WhatsApp number must be exactly 10 digits.";
+    } else if (!/^[6-9]\d{9}$/.test(whatsapp)) {
+      errors.whatsapp = "Please enter a valid Indian mobile number.";
+    }
+
+    /* ---------------- EMAIL ---------------- */
+
+    const email = contactForm.email.trim();
+
+    if (!email) {
+      errors.email = "Please enter your email address.";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)
+    ) {
+      errors.email = "Please enter a valid email address.";
+    }
+
+    /* ---------------- ADDRESS ---------------- */
+
+    const address = contactForm.address.trim();
+
+    if (!address) {
+      errors.address = "Please enter your address.";
+    } else if (address.length < 10) {
+      errors.address = "Please enter a complete address.";
+    }
+
+    /* ---------------- MESSAGE ---------------- */
+
+    const message = contactForm.message.trim();
+
+    if (!message) {
+      errors.message = "Please enter your message.";
+    } else if (message.length < 5) {
+      errors.message = "Message must be at least 5 characters.";
+    }
+
+    setContactErrors(errors);
+
+    return !Object.values(errors).some(Boolean);
+  };
+
+  const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const isValid = validateContactForm();
+
+    if (!isValid) return;
+
+    const companyWhatsapp = "917980334730";
+
+    const packageDetails = selectedPlan
+      ? `
+*Selected Investment Package*
+Package: ${selectedPlan.name}
+Units: ${selectedPlan.units}
+Investment: ${selectedPlan.price}
+Potential Income: ${selectedPlan.income}
+`
+      : "";
+
+    const whatsappMessage = `
+Hello Krishi Kalyan,
+
+I would like to make an enquiry regarding Krishi Kalyan.
+
+${packageDetails}
+
+*Client Details*
+Name: ${contactForm.name.trim()}
+WhatsApp Number: ${contactForm.whatsapp}
+Email: ${contactForm.email.trim()}
+Address: ${contactForm.address.trim()}
+
+*Message*
+${contactForm.message.trim()}
+
+Please contact me regarding my enquiry.
+
+Thank you.
+`.trim();
+
+    const whatsappUrl = `https://wa.me/${companyWhatsapp}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
+
+    window.location.href = whatsappUrl;
+  };
+
+  useEffect(() => {
+    const openContact = () => {
+      setContactOpen(true);
+    };
+
+    window.addEventListener("open-contact-overlay", openContact);
+
+    // Open automatically when arriving at /#contact
+    if (window.location.hash === "#contact") {
+      setContactOpen(true);
+    }
+
+    return () => {
+      window.removeEventListener("open-contact-overlay", openContact);
+    };
+  }, []);
+
   return (
     <>
       {/* HERO */}
@@ -974,12 +784,16 @@ export default function HomePage() {
                     ))}
                   </ul>
 
-                  <a
-                    href="#contact"
-                    className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold ${p.popular ? "gradient-gold text-foreground" : "bg-foreground text-background"}`}
+                  <button
+                    type="button"
+                    onClick={() => openContactForm(p)}
+                    className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold ${p.popular
+                      ? "gradient-gold text-foreground"
+                      : "bg-foreground text-background"
+                      }`}
                   >
                     Get started
-                  </a>
+                  </button>
                 </div>
               </FadeIn>
             ))}
@@ -1052,18 +866,366 @@ export default function HomePage() {
                   >
                     <Phone className="h-4 w-4" /> Call 79803 34730
                   </a>
-                  <a
-                    href="#contact"
+                  <button
+                    type="button"
+                    onClick={() => openContactForm()}
                     className="inline-flex items-center gap-2 rounded-full border border-background/30 bg-background/10 px-6 py-3.5 text-sm font-semibold text-background backdrop-blur hover:bg-background/20"
                   >
                     Send a message <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
           </FadeIn>
         </div>
       </section>
+
+      {/* CONTACT FORM OVERLAY */}
+      {contactOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-foreground/80 p-4 backdrop-blur-sm"
+          onClick={closeContactForm}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Contact Krishi Kalyan"
+        >
+          <div
+            className="relative max-h-[92vh] w-full max-w-xl overflow-y-auto scrollbar-hide rounded-3xl bg-card shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* HEADER */}
+            <div className="relative bg-primary p-6 text-primary-foreground">
+              <button
+                type="button"
+                onClick={closeContactForm}
+                aria-label="Close contact form"
+                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-background/10 transition hover:bg-background/20"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <div className="pr-10">
+                <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-accent">
+                  <FaWhatsapp className="h-4 w-4" />
+                  Get in touch
+                </div>
+
+                <h2 className="mt-2 font-display text-2xl font-bold md:text-3xl">
+                  Let's Grow Together
+                </h2>
+
+                <p className="mt-2 text-sm text-primary-foreground/75">
+                  Fill in your details and our team will contact you on WhatsApp.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-6 md:p-7">
+
+              {/* SELECTED PACKAGE */}
+              {selectedPlan && (
+                <div className="mb-6 rounded-2xl border border-primary/30 bg-primary/5 p-5">
+                  <div className="text-xs font-bold uppercase tracking-wider text-clay">
+                    Selected Package
+                  </div>
+
+                  <div className="mt-3 flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="font-display text-xl font-bold">
+                        {selectedPlan.name}
+                      </h3>
+
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {selectedPlan.units}
+                      </p>
+                    </div>
+
+                    <div className="text-right">
+                      <div className="font-display text-xl font-bold text-primary">
+                        {selectedPlan.price}
+                      </div>
+
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        Investment
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-2 gap-3">
+                    <div className="rounded-xl bg-secondary p-3">
+                      <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                        Potential Income
+                      </div>
+                      <div className="mt-1 font-semibold">
+                        {selectedPlan.income}
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl bg-secondary p-3">
+                      <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                        Type
+                      </div>
+                      <div className="mt-1 font-semibold">
+                        One-time investment
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* FORM */}
+              <form onSubmit={handleContactSubmit} className="space-y-5">
+
+                {/* NAME */}
+                <div>
+                  <label
+                    htmlFor="contact-name"
+                    className="mb-2 block text-sm font-semibold"
+                  >
+                    Full Name
+                  </label>
+
+                  <input
+                    id="contact-name"
+                    type="text"
+                    value={contactForm.name}
+                    onChange={(e) => {
+                      setContactForm((prev) => ({
+                        ...prev,
+                        name: e.target.value,
+                      }));
+
+                      if (contactErrors.name) {
+                        setContactErrors((prev) => ({
+                          ...prev,
+                          name: "",
+                        }));
+                      }
+                    }}
+                    placeholder="Enter your full name"
+                    autoComplete="name"
+                    className={`w-full rounded-xl border bg-background px-4 py-3 text-sm outline-none transition placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 ${contactErrors.name
+                      ? "border-destructive"
+                      : "border-border focus:border-primary"
+                      }`}
+                  />
+
+                  {contactErrors.name && (
+                    <p className="mt-1.5 text-xs font-medium text-destructive">
+                      {contactErrors.name}
+                    </p>
+                  )}
+                </div>
+
+                {/* WHATSAPP */}
+                <div>
+                  <label
+                    htmlFor="contact-whatsapp"
+                    className="mb-2 block text-sm font-semibold"
+                  >
+                    WhatsApp Number
+                  </label>
+
+                  <div
+                    className={`flex overflow-hidden rounded-xl border bg-background transition focus-within:ring-2 focus-within:ring-primary/20 ${contactErrors.whatsapp
+                      ? "border-destructive"
+                      : "border-border focus-within:border-primary"
+                      }`}
+                  >
+                    <span className="flex items-center border-r border-border bg-secondary px-4 text-sm font-semibold">
+                      +91
+                    </span>
+
+                    <input
+                      id="contact-whatsapp"
+                      type="tel"
+                      inputMode="numeric"
+                      value={contactForm.whatsapp}
+                      onChange={(e) => {
+                        const value = e.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, 10);
+
+                        setContactForm((prev) => ({
+                          ...prev,
+                          whatsapp: value,
+                        }));
+
+                        if (contactErrors.whatsapp) {
+                          setContactErrors((prev) => ({
+                            ...prev,
+                            whatsapp: "",
+                          }));
+                        }
+                      }}
+                      placeholder="9876543210"
+                      autoComplete="tel"
+                      maxLength={10}
+                      className="w-full bg-transparent px-4 py-3 text-sm outline-none placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  {contactErrors.whatsapp && (
+                    <p className="mt-1.5 text-xs font-medium text-destructive">
+                      {contactErrors.whatsapp}
+                    </p>
+                  )}
+                </div>
+
+                {/* EMAIL */}
+                <div>
+                  <label
+                    htmlFor="contact-email"
+                    className="mb-2 block text-sm font-semibold"
+                  >
+                    Email Address
+                  </label>
+
+                  <div className="relative">
+                    <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+
+                    <input
+                      id="contact-email"
+                      type="email"
+                      value={contactForm.email}
+                      onChange={(e) => {
+                        setContactForm((prev) => ({
+                          ...prev,
+                          email: e.target.value,
+                        }));
+
+                        if (contactErrors.email) {
+                          setContactErrors((prev) => ({
+                            ...prev,
+                            email: "",
+                          }));
+                        }
+                      }}
+                      placeholder="you@example.com"
+                      autoComplete="email"
+                      className={`w-full rounded-xl border bg-background py-3 pl-11 pr-4 text-sm outline-none transition placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 ${contactErrors.email
+                        ? "border-destructive"
+                        : "border-border focus:border-primary"
+                        }`}
+                    />
+                  </div>
+
+                  {contactErrors.email && (
+                    <p className="mt-1.5 text-xs font-medium text-destructive">
+                      {contactErrors.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* ADDRESS */}
+                <div>
+                  <label
+                    htmlFor="contact-address"
+                    className="mb-2 block text-sm font-semibold"
+                  >
+                    Address
+                  </label>
+
+                  <div
+                    className={`relative rounded-xl border bg-background transition focus-within:ring-2 focus-within:ring-primary/20 ${contactErrors.address
+                      ? "border-destructive"
+                      : "border-border focus-within:border-primary"
+                      }`}
+                  >
+                    <MapPin className="pointer-events-none absolute left-4 top-4 h-5 w-5 text-muted-foreground" />
+
+                    <textarea
+                      id="contact-address"
+                      value={contactForm.address}
+                      onChange={(e) => {
+                        setContactForm((prev) => ({
+                          ...prev,
+                          address: e.target.value,
+                        }));
+
+                        if (contactErrors.address) {
+                          setContactErrors((prev) => ({
+                            ...prev,
+                            address: "",
+                          }));
+                        }
+                      }}
+                      placeholder="Enter your complete address"
+                      rows={3}
+                      autoComplete="street-address"
+                      className="w-full resize-none bg-transparent py-3 pl-12 pr-4 text-sm outline-none placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  {contactErrors.address && (
+                    <p className="mt-1.5 text-xs font-medium text-destructive">
+                      {contactErrors.address}
+                    </p>
+                  )}
+                </div>
+
+                {/* MESSAGE */}
+                <div>
+                  <label
+                    htmlFor="contact-message"
+                    className="mb-2 block text-sm font-semibold"
+                  >
+                    Message
+                  </label>
+
+                  <textarea
+                    id="contact-message"
+                    value={contactForm.message}
+                    onChange={(e) => {
+                      setContactForm((prev) => ({
+                        ...prev,
+                        message: e.target.value,
+                      }));
+
+                      if (contactErrors.message) {
+                        setContactErrors((prev) => ({
+                          ...prev,
+                          message: "",
+                        }));
+                      }
+                    }}
+                    placeholder={
+                      selectedPlan
+                        ? "Tell us anything you'd like to know about this package..."
+                        : "How can we help you?"
+                    }
+                    rows={4}
+                    className={`w-full resize-none rounded-xl border bg-background px-4 py-3 text-sm outline-none transition placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 ${contactErrors.message
+                      ? "border-destructive"
+                      : "border-border focus:border-primary"
+                      }`}
+                  />
+
+                  {contactErrors.message && (
+                    <p className="mt-1.5 text-xs font-medium text-destructive">
+                      {contactErrors.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* SUBMIT */}
+                <button
+                  type="submit"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-4 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#20bd5a]"
+                >
+                  <FaWhatsapp className="h-5 w-5" />
+                  Continue on WhatsApp
+                </button>
+
+                <p className="text-center text-xs leading-relaxed text-muted-foreground">
+                  Your details will be shared with Krishi Kalyan through WhatsApp
+                  to process your enquiry.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

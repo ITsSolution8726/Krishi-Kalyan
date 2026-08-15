@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, X, Phone, Sprout } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { FaWhatsapp } from "react-icons/fa";
 
 const nav = [
   { to: "/#home", label: "Home", bn: "হোম" },
@@ -11,11 +12,22 @@ const nav = [
   { to: "/#projects", label: "Projects", bn: "প্রকল্প" },
   { to: "/product", label: "Product", bn: "পণ্য" },
   { to: "/#investment", label: "Invest", bn: "বিনিয়োগ" },
-  { to: "/#contact", label: "Contact", bn: "যোগাযোগ" },
 ] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const handleContactClick = () => {
+    setOpen(false);
+
+    // If already on the home page, open the contact overlay
+    if (window.location.pathname === "/") {
+      window.dispatchEvent(new Event("open-contact-overlay"));
+      window.history.replaceState(null, "", "/#contact");
+    } else {
+      // Go to home page with contact hash
+      window.location.href = "/#contact";
+    }
+  };
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 lg:px-8">
@@ -47,19 +59,32 @@ export function SiteHeader() {
           ))}
         </nav>
 
+        {/* Right Side */}
         <div className="flex items-center gap-2">
-          <a
-            href="tel:+917980334730"
-            className="hidden md:inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
-          >
-            <Phone className="h-4 w-4" /> 79803 34730
-          </a>
+
+          {/* Contact CTA */}
           <button
-            onClick={() => setOpen(!open)}
-            className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card"
-            aria-label="Menu"
+            type="button"
+            onClick={handleContactClick}
+            className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-md"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <FaWhatsapp className="h-5 w-5" />
+            Contact
+          </button>
+
+          {/* Mobile Menu */}
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card lg:hidden"
+            aria-label="Menu"
+            aria-expanded={open}
+          >
+            {open ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
       </div>
@@ -78,9 +103,15 @@ export function SiteHeader() {
                 <span className="font-bengali text-sm text-muted-foreground">{n.bn}</span>
               </a>
             ))}
-            <a href="tel:+917980334730" className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-primary py-3 font-semibold text-primary-foreground">
-              <Phone className="h-4 w-4" /> 79803 34730
-            </a>
+            {/* Mobile Contact */}
+            <button
+  type="button"
+  onClick={handleContactClick}
+  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 font-semibold text-primary-foreground"
+>
+  <FaWhatsapp className="h-5 w-5" />
+  Contact
+</button>
           </nav>
         </div>
       )}
